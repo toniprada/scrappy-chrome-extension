@@ -22,5 +22,6 @@ http://stackoverflow.com/questions/7391320/chrome-extension-using-sidebar
 chrome.browserAction.onClicked.addListener(function(tab) {
 	chrome.tabs.insertCSS(tab.id, {file:"core.css"});  
 	chrome.tabs.executeScript(tab.id, {file:"core.js"});
+	chrome.tabs.insertCSS(tab.id, {file:"sidebar.css"});  
 	chrome.tabs.sendRequest(tab.id, {callFunction: "toggleSidebar"});
 });

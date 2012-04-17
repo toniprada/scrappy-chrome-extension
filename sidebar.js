@@ -23,17 +23,9 @@ function toggleSidebar() {
 		sidebar.id = "mySidebar";
 		sidebar.className = "sidebar";
 		sidebar.innerHTML = "\
-			<h1 class='sidebar'>Scrappy Extension</h1>\
-		";
-		sidebar.style.cssText = "\
-			position:fixed;\
-			top:0px;\
-			left:0px;\
-			width:300px;\
-			height:100%;\
-			background:white;\
-			box-shadow:inset 0 0 1em black;\
-			z-index:999999;\
+			<h1 class='sidebar'>Scrappy extension</h1>\
+			<div id='sidebarContent' class='sidebar'></div>\
+			<button id='submit' class='sidebar'>Submit</button>\
 		";
 		document.body.appendChild(sidebar);
 		document.body.style.padding = "0px 0px 0px 300px !important";
