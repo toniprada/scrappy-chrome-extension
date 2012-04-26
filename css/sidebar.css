@@ -1,4 +1,12 @@
-#mySidebar {	
+body {
+	margin: "0px 0px 0px 300px !important";
+}
+
+.eakjgooddkpnaedbjkbfoncimdkgamin_clearBoth {
+	clear:both;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar {	
 	position:fixed;
 	top:0px;
 	left:0px;
@@ -10,25 +18,65 @@
 	overflow: auto;
 }
 
-#mySidebar h1 {
-	margin:20px;
-	align:center;
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_scrappyLogo {
+	float: left;
+	width: 180px;
+	margin: 20px 0px 20px 20px;
 }
 
-#mySidebar .element {
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_gsiLogo {
+	float: right;
+	margin: 23px 20px 50px 0;
+	width: 50px;
+}
+
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar button {
+	-webkit-box-align: center;
+	text-align: center;
+	cursor: default;
+	color: buttontext;
+	padding: 2px 6px 3px;
+	border: 2px outset buttonface;
+	background-color: buttonface;
+	box-sizing: border-box;
+	margin:0px;
+	width:20%;
+	height: 30px;
+}
+
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar .eakjgooddkpnaedbjkbfoncimdkgamin_element select {
+	width: 80%;
+	height: 30px;
+	margin:0px;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar .eakjgooddkpnaedbjkbfoncimdkgamin_xpath {
+	overflow: hidden;
+	font-style:italic;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar .eakjgooddkpnaedbjkbfoncimdkgamin_element {
 	margin:10px 5px 10px 5px;
 	padding:5px;
 	background:#E6E6E6;
 }
 
-#mySidebar #submitButtonScrappy {
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_submitButtonScrappy {
 	width: 100px;
 	padding: 5px;
 	margin: auto;
 	display: block;
 }
 
-#mySidebar select {
-	width: 220px;
-	height: 20px;
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredBy {
+	text-align:center;
+	margin-top: 60px;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredLogo {
+	height:100px;
+	display:block;
+	margin:auto;
 }

@@ -1,17 +1,19 @@
 {
   "name": "Scrappy",
   "version": "0.1.0",
-  "background_page": "background.html",
+  "background": {
+    "scripts": ["js/background.js"]
+  },
   "permissions": [
     "tabs", "http://*/*"
   ],
-   "icons": { 
-		"16": "img/icon16.jpg",
-           	"48": "img/icon48.jpg",
-          	"128": "img/icon128.jpg" 
+  "icons": { 
+    "16": "img/logo16.png",
+    "48": "img/logo48.png",
+    "128": "img/logo128.png"
   },
    "browser_action": {
-      "default_icon": "img/icon48.jpg",
+      "default_icon": "img/logo48.png",
       "default_title": "Scrappy"
    },
   "content_scripts": [
@@ -19,6 +21,5 @@
       "matches": ["<all_urls>"],
       "js": ["js/constants.js"]
     }
-  ],
-  "content_security_policy": "default-src 'none'; script-src 'self'"
+  ]
 }
