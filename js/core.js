@@ -90,7 +90,11 @@ function toggleSidebar() {
       <img id='" + CSS.ids.sponsoredLogo + "' src='" + chrome.extension.getURL("img/globalmetanoia.jpg") + "' class='" + CSS.classes.sidebar +  "' />\
     ";
     document.body.appendChild(sidebar);
+<<<<<<< HEAD
     document.body.style.margin = "0px 0px 0px 300px";
+=======
+    document.body.style.margin = '0 0 0 300px';
+>>>>>>> 7496f19c40a8d1124421dd2180de041784eee9c4
     sidebarOpen = true;
   }
 }
