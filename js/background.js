@@ -34,13 +34,13 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     clog(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
-    if (request.greeting == "post_extractor") {
+    if (request.action == "post_extractor") {
       	sendResponse({farewell:"received post extractor request"});
-  		postExtractor();
+  		postExtractor(request.url);
     }
   });
 
-function postExtractor() {
+function postExtractor(url) {
     var req = new XMLHttpRequest();
     try {
         req.open("POST", "http://localhost:3434/extractors", true);
@@ -53,7 +53,7 @@ function postExtractor() {
         params += '  sc:selector:\n';
         params += '    *:\n';
         params += '      rdf:type: sc:UriSelector\n';
-        params += '      rdf:value: "http://elpais.com/"\n';
+        params += '      rdf:value: "' + url + '"\n';
         params += '  sc:identifier:\n';
         params += '    *:\n';
         params += '      rdf:type: sc:BaseUriSelector\n';
@@ -63,7 +63,19 @@ function postExtractor() {
         params += '      sc:selector:\n';
         params += '        *:\n';
         params += '          rdf:type: sc:XPathSelector\n';
-        params += '          rdf:value: "/html/body/div[4]/div[4]/div[3]/div[2]/div/div/h2/a"';
+        params += '      sc:identifier:';
+        params += '        *:';
+        params += '          rdf:type: sc:XPathSelector';
+        params += '          rdf:value: "/html/body/div[2]/div[5]/div[4]/div/h2/a"';
+        params += '          sc:attribute: "href"';
+        params += '        sc:subfragment:';
+        params += '        *:';
+        params += '          sc:type:     rdf:Literal';
+        params += '          sc:relation: dc:title';
+        params += '          sc:selector:';
+        params += '        *:';
+        params += '          rdf:type:  sc:XPathSelector';
+        params += '          rdf:value: "/html/body/div[2]/div[5]/div[4]/div/h2/a"';
 
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         //req.setRequestHeader("Content-length", params.length);
@@ -91,3 +103,4 @@ function clog(val) {
     var message = JSON.stringify(val).replace(/\n/g, " ");
     chrome.tabs.sendRequest(tabid, {type: "consoleLog", value: message}); 
 }
+

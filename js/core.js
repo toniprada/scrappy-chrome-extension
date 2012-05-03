@@ -90,7 +90,7 @@ function toggleSidebar() {
       <img id='" + CSS.ids.sponsoredLogo + "' src='" + chrome.extension.getURL("img/globalmetanoia.jpg") + "' class='" + CSS.classes.sidebar +  "' />\
     ";
     document.body.appendChild(sidebar);
-    document.body.style.margin = "0px 0px 0px 300px !important";
+    document.body.style.margin = "0px 0px 0px 300px";
     sidebarOpen = true;
   }
 }
@@ -168,9 +168,7 @@ function removeElement(deleteButtonClicked) {
 
 function submitInfo() {
     var htmlNodes = document.getElementById(CSS.ids.sidebarContent).childNodes;
-    console.log(infoToJson(htmlNodes));
-    console.log(infoToExtractor(htmlNodes));
-    chrome.extension.sendRequest({greeting: "post_extractor"}, function(response) {
+    chrome.extension.sendRequest({action: "post_extractor",url: window.location.hostname}, function(response) {
       console.log(response.farewell);
     });
 }
@@ -238,7 +236,7 @@ function getElementXPath(elt){
   if (idx > 1) xname += "[" + idx + "]";
   path = "/" + xname + path;
 }
-return path; 
+return path.toLowerCase();
 }
 
 function getElementIdx(elt){
