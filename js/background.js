@@ -14,7 +14,11 @@ limitations under the License.
 
 @author Antonio Prada <toniprada@gmail.com>
 
+Source code at https://github.com/toniprada/scrappy-chrome-extension
+
 Thanks to:
+- Jose Ignacio Fernandez (josei) for scrappy: 
+https://github.com/josei/scrappy
 - Mohamed Mansour for:
 http://stackoverflow.com/questions/4445102/google-chrome-extension-highlight-the-div-that-the-mouse-is-hovering-over 
 - cvsguimaraes for:
@@ -23,71 +27,43 @@ http://stackoverflow.com/questions/7391320/chrome-extension-using-sidebar
 
 var tabid = null;
 
+/* ----------------- Request Handling ------------------*/
+
 chrome.browserAction.onClicked.addListener(function(tab) {
     tabid = tab.id;
-	chrome.tabs.insertCSS(tab.id, {file:"css/core.css"});  
-	chrome.tabs.insertCSS(tab.id, {file:"css/sidebar.css"});  
-	chrome.tabs.executeScript(tab.id, {file:"js/core.js"});
-	//chrome.tabs.sendRequest(tab.id, {callFunction: "toggleSidebar"});
+    chrome.tabs.sendRequest(tab.id, {callFunction: "toggleExtension"});
 });
 
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     clog(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
     if (request.action == "post_extractor") {
-      	sendResponse({farewell:"received post extractor request"});
-  		postExtractor(request.url);
-    }
-  });
+     sendResponse({message:"received post extractor request"});
+     if(postExtractor(request.url, request.dataArray)) {
+        clog("Extractor sent to scrappy");
+     }
+ }
+});
 
-function postExtractor(url) {
+/* ------------------ Initialization -------------------*/
+
+
+
+/* ------------------- Functions --------------------*/
+
+
+function postExtractor(url, data) {
     var req = new XMLHttpRequest();
     try {
         req.open("POST", "http://localhost:3434/extractors", true);
-        var params = 'rdf=sioc: http://rdfs.org/sioc/ns#\n';
-        params += 'sc: http://lab.gsi.dit.upm.es/scraping.rdf#\n';
-        params += 'loc: http://www.daml.org/experiment/ontology/location-ont#\n';
-        params += '\n';    
-        params += '_:elpaisindice:\n';
-        params += '  rdf:type: sc:Fragment\n';
-        params += '  sc:selector:\n';
-        params += '    *:\n';
-        params += '      rdf:type: sc:UriSelector\n';
-        params += '      rdf:value: "' + url + '"\n';
-        params += '  sc:identifier:\n';
-        params += '    *:\n';
-        params += '      rdf:type: sc:BaseUriSelector\n';
-        params += '  sc:subfragment:\n';
-        params += '    *:\n';
-        params += '      sc:type: sioc:Post\n';
-        params += '      sc:selector:\n';
-        params += '        *:\n';
-        params += '          rdf:type: sc:XPathSelector\n';
-        params += '      sc:identifier:';
-        params += '        *:';
-        params += '          rdf:type: sc:XPathSelector';
-        params += '          rdf:value: "/html/body/div[2]/div[5]/div[4]/div/h2/a"';
-        params += '          sc:attribute: "href"';
-        params += '        sc:subfragment:';
-        params += '        *:';
-        params += '          sc:type:     rdf:Literal';
-        params += '          sc:relation: dc:title';
-        params += '          sc:selector:';
-        params += '        *:';
-        params += '          rdf:type:  sc:XPathSelector';
-        params += '          rdf:value: "/html/body/div[2]/div[5]/div[4]/div/h2/a"';
-
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        //req.setRequestHeader("Content-length", params.length);
-        //req.setRequestHeader("Connection", "close");
-        req.send(params)
+        req.send('rdf=' + buildExtractor(url, data));
 
         req.onreadystatechange = function() 
         { 
             clog("readystate:" + req.readyState + " status:" + req.status);
             if (req.readyState == 4) {
                 if (req.status == 200) {
-                  clog("Extractor sent to scrappy");
                   return true;
               }
           } 
@@ -99,8 +75,44 @@ function postExtractor(url) {
     } 
 }
 
-function clog(val) {
-    var message = JSON.stringify(val).replace(/\n/g, " ");
-    chrome.tabs.sendRequest(tabid, {type: "consoleLog", value: message}); 
+function buildExtractor(url, data) {
+    var s = 'rdf=sioc: http://rdfs.org/sioc/ns#\n';
+    s += 'sc: http://lab.gsi.dit.upm.es/scraping.rdf#\n';
+    s += 'loc: http://www.daml.org/experiment/ontology/location-ont#\n';
+    s += '\n';    
+    s += '*:\n';
+    s += '  rdf:type: sc:Fragment\n';
+    s += '  sc:selector:\n';
+    s += '    *:\n';
+    s += '      rdf:type: sc:UriSelector\n';
+    s += '      rdf:value: "http://' + url + '/"\n';
+    s += '  sc:identifier:\n';
+    s += '    *:\n';
+    s += '      rdf:type: sc:BaseUriSelector\n';
+    s += '  sc:subfragment:\n';
+    s += '    *:\n';
+    s += '      sc:type: sioc:Post\n';
+    s += '      sc:selector:\n';
+    s += '        *:\n';
+    s += '          rdf:type: sc:XPathSelector\n';
+    s += '          rdf:value: "' + data.wrapper.xpath + '"\n';
+    s += '      sc:identifier:\n';
+    s += '        *:\n';
+    s += '          rdf:type: sc:XPathSelector\n';
+    s += '          rdf:value: "' + data.title.xpath + '"\n';
+    s += '          sc:attribute: "href"\n';
+    s += '      sc:subfragment:\n';
+    s += '        *:\n';
+    s += '          sc:type:     rdf:Literal\n';
+    s += '          sc:relation: dc:title\n';
+    s += '          sc:selector:\n';
+    s += '            *:\n';
+    s += '              rdf:type:  sc:XPathSelector\n';
+    s += '              rdf:value: "' +  data.title.xpath  + '"\n';
+    return s
 }
 
+function clog(val) {
+    var message = JSON.stringify(val).replace(/\n/g, " ");
+    chrome.tabs.sendRequest(tabid, {callFunction: "consoleLog", value: message}); 
+}
