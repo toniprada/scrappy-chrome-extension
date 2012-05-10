@@ -20,11 +20,13 @@ CSS = {
 		sidebar: 		'eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar',
 		sidebarContent: 'eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent',
 		submitButton: 	'eakjgooddkpnaedbjkbfoncimdkgamin_submitButtonScrappy',
+		addButton: 		'eakjgooddkpnaedbjkbfoncimdkgamin_addButtonScrappy',
 		element: 		'eakjgooddkpnaedbjkbfoncimdkgamin_element',
 		scrappyLogo: 	'eakjgooddkpnaedbjkbfoncimdkgamin_scrappyLogo',
 		gsiLogo: 		'eakjgooddkpnaedbjkbfoncimdkgamin_gsiLogo',
 		sponsoredBy: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredBy',
-		sponsoredLogo: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredLogo'
+		sponsoredLogo: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredLogo',
+		dialogContent: 	'eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent'
 	},
 
 	classes: {

@@ -1,0 +1,6 @@
+{
+	"test": {
+		"message": "test_message",
+		"description": "test for localization"
+	}
+}
