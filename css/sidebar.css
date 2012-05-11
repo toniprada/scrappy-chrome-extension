@@ -19,10 +19,6 @@ body {
 	margin: "0px 0px 0px 300px !important";
 }
 
-.eakjgooddkpnaedbjkbfoncimdkgamin_clearBoth {
-	clear:both;
-}
-
 #eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar {	
 	position:fixed;
 	top:0px;
@@ -48,38 +44,6 @@ body {
 }
 
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar button {
-	-webkit-box-align: center;
-	text-align: center;
-	cursor: default;
-	color: buttontext;
-	padding: 2px 6px 3px;
-	border: 2px outset buttonface;
-	background-color: buttonface;
-	box-sizing: border-box;
-	margin:0px;
-	width:20%;
-	height: 30px;
-}
-
-
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar .eakjgooddkpnaedbjkbfoncimdkgamin_element select {
-	width: 80%;
-	height: 30px;
-	margin:0px;
-}
-
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar .eakjgooddkpnaedbjkbfoncimdkgamin_xpath {
-	overflow: hidden;
-	font-style:italic;
-}
-
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar .eakjgooddkpnaedbjkbfoncimdkgamin_element {
-	margin:10px 5px 10px 5px;
-	padding:5px;
-	background:#E6E6E6;
-}
-
 #eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_submitButtonScrappy {
 	width: 100px;
 	padding: 5px;
@@ -102,4 +66,17 @@ body {
 	height:100px;
 	display:block;
 	margin:auto;
+}
+
+
+#dialog-about #eakjgooddkpnaedbjkbfoncimdkgamin_financiacion {
+	height: 170px;
+	margin-top: 40px;
+	margin-bottom: 50px;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_aboutLink {
+	display: block;
+	margin: auto;
+	text-align: center;
 }

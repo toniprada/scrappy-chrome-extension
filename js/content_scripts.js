@@ -72,6 +72,8 @@ mouseClickListener = function (e) {
       submitInfo();
     } else if (srcElement.id == CSS.ids.addButton) {
       showAddElementDialog();
+    } else if (srcElement.id == CSS.ids.aboutLink) {
+      showAboutDialog();
     }
   }
 // Stop propagation of links to avoid navigating to another page
@@ -86,10 +88,13 @@ e.stopPropagation();
 function showAddElementDialog() {   
     $( "#dialog-form" ).dialog({
       autoOpen: false,
-      height: 600,
-      width: 800,
+      height: 800,
+      width: 400,
       modal: false,
       buttons: {
+        Cancel: function() {
+          $( this ).dialog( "close" );
+        },
         "Create container": function() {
           /*var bValid = true;
           allFields.removeClass( "ui-state-error" );
@@ -111,9 +116,6 @@ function showAddElementDialog() {
             "</tr>" ); 
             $( this ).dialog( "close" );
           }*/
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
         }
       },
       close: function() {
@@ -122,6 +124,15 @@ function showAddElementDialog() {
     });
   $( "#dialog-form" ).dialog( "open" );
   addMoveListener();
+}
+
+function showAboutDialog() {   
+    $( "#dialog-about" ).dialog({
+      autoOpen: true,
+      height: 700,
+      width: 400,
+      modal: true,
+    });
 }
 
 
@@ -175,6 +186,8 @@ function toggleExtension() {
   if(sidebarOpen) {
     var el = document.getElementById(CSS.ids.sidebar);
     el.parentNode.removeChild(el);
+    el = document.getElementById(CSS.ids.dialogs);
+    el.parentNode.removeChild(el);
     document.body.style.margin = ORIGINAL_BODY_MARGIN;
     document.removeEventListener('click', mouseClickListener, false);
     sidebarOpen = false;
@@ -200,25 +213,48 @@ function toggleExtension() {
         <img id="' + CSS.ids.sponsoredLogo + '" src="' 
         + chrome.extension.getURL("img/globalmetanoia.jpg") + '" class="' 
         + CSS.classes.sidebar +  '" />\
+        <a id="' + CSS.ids.aboutLink + '" href="#" class="' 
+        + CSS.classes.sidebar +  '" >About</a>\
       </div>\
-      <div class="hide">\
-        <div id="dialog-form" title="Creating new container - Click elements on the webpage to add them to the container" class="' 
+      </div>';
+    document.body.appendChild(sidebar);
+    document.body.style.margin = '0 0 0 300px';
+    var dialogs = document.createElement('div');
+    dialogs.className = "hide";
+    dialogs.id = CSS.ids.dialogs;
+    dialogs.innerHTML =  '\
+        <div id="dialog-form" title="Creating new container - ' +
+        'Click elements on the webpage to add them to the container" class="' 
         + CSS.classes.sidebar +  '">\
           <div id="' + CSS.ids.dialogContent + '" class="' 
           + CSS.classes.sidebar +  '">\
           </div>\
         </div>\
-      </div>';
-    document.body.appendChild(sidebar);
-    document.body.style.margin = '0 0 0 300px';
+        <div id="dialog-about" title="About" class="' 
+        + CSS.classes.sidebar +  '">\
+          <p class="' + CSS.classes.sidebar +  '">\
+          <img src="' + chrome.extension.getURL('img/logo_gsi.png') +
+          '" class="' + CSS.classes.sidebar +  '" />\
+          <img src="' + chrome.extension.getURL('img/episteme.jpg') +
+          '" class="' + CSS.classes.sidebar +  '" />\
+          <img id="' + CSS.ids.financiacion + '" src="' + chrome.extension.getURL('img/financiacion150.jpg') +
+          '" class="' + CSS.classes.sidebar +  '" />\
+          Proyecto cofinanciado por el Ministerio de Industria, Energía y '
+          + 'Turismo, dentro del Plan Nacional de Investigación Científica, '
+          + 'Desarrollo e Innovación Tecnológica 2008-2011 (Referencia '
+          + 'proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo '
+          + ' de Desarrollo Regional (FEDER). Subprograma Avanza Competitividad '
+          + 'I+D+i.\
+          </div>'
+    document.body.appendChild(dialogs);
     document.addEventListener('click', mouseClickListener, false);
     sidebarOpen = true;
   }
 }
 
-// <button id='" + CSS.ids.submitButton + "'  class='" + CSS.classes.sidebar +  "'>Submit</button>\
-//    $(".ui-icon").css("background-image", chrome.extension.getURL("css/smoothness/images/ui-icons_222222_256x240.png"));
-
+// <button id='" + CSS.ids.submitButton + "'  class='" + 
+// CSS.classes.sidebar +  "'>Submit</button>\
+ 
 
 function getElementXPath(elt){
  var path = "";
@@ -261,19 +297,23 @@ function addElement(elementClicked) {
     // Append the element to the list of elements:
     document.getElementById(CSS.ids.dialogContent).appendChild(div);
     number++;
-}
+  }
 
 
 function removeElement(deleteButtonClicked) {
-    var element = document.getElementById(CSS.ids.element + deleteButtonClicked.id);
-    document.getElementById(CSS.ids.dialogContent).removeChild(element);
+  var element = document.getElementById(CSS.ids.element + deleteButtonClicked.id);
+  document.getElementById(CSS.ids.dialogContent).removeChild(element);
 }
 
 function submitInfo() {
-    var elements = document.getElementById(CSS.ids.sidebarContent).childNodes;
-    chrome.extension.sendRequest({action:"post_extractor", url:window.location.hostname, dataArray: packInfo(elements)}, function(response) {
+  var elements = document.getElementById(CSS.ids.sidebarContent).childNodes;
+  chrome.extension.sendRequest({
+    action:"post_extractor", 
+    url:window.location.hostname, dataArray: packInfo(elements)}, 
+    function(response) {
       console.log(response.message);
-    });
+    }
+    );
 }
 
 function packInfo(elements) {

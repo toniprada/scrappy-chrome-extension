@@ -22,4 +22,48 @@ limitations under the License.
 
 .hide {
 	visibility:hidden;
+	height:0px;
 };
+
+.eakjgooddkpnaedbjkbfoncimdkgamin_clearBoth {
+	clear:both;
+}
+
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent button {
+	-webkit-box-align: center;
+	text-align: center;
+	cursor: default;
+	color: buttontext;
+	padding: 2px 6px 3px;
+	border: 2px outset buttonface;
+	background-color: buttonface;
+	box-sizing: border-box;
+	margin:0px;
+	width:20%;
+	height: 30px;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent .eakjgooddkpnaedbjkbfoncimdkgamin_element select {
+	width: 80%;
+	height: 30px;
+	margin:0px;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent .eakjgooddkpnaedbjkbfoncimdkgamin_xpath {
+	overflow: hidden;
+	font-style:italic;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent .eakjgooddkpnaedbjkbfoncimdkgamin_element {
+	margin:10px 5px 10px 5px;
+	padding:5px;
+	background:#E6E6E6;
+}
+
+#dialog-about img {
+	height: 100px;
+	margin: auto;
+	display: block;
+	margin-bottom: 20px;
+}

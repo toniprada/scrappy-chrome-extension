@@ -26,7 +26,10 @@ CSS = {
 		gsiLogo: 		'eakjgooddkpnaedbjkbfoncimdkgamin_gsiLogo',
 		sponsoredBy: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredBy',
 		sponsoredLogo: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredLogo',
-		dialogContent: 	'eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent'
+		dialogContent: 	'eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent',
+		aboutLink: 		'eakjgooddkpnaedbjkbfoncimdkgamin_aboutLink',
+		financiacion: 	'eakjgooddkpnaedbjkbfoncimdkgamin_financiacion',
+		dialogs: 		'eakjgooddkpnaedbjkbfoncimdkgamin_dialogs'
 	},
 
 	classes: {
