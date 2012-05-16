@@ -21,7 +21,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["css/general.css", "css/sidebar.css", "css/smoothness/jquery-ui-1.8.20.css", "css/smoothness/jquery-ui-chrome-extension.css"],
+      "css": ["css/cssreset-context-min.css", "css/cssbase-context-min.css", "css/general.css", "css/sidebar.css", "css/smoothness/jquery-ui-1.8.20.css", "css/smoothness/jquery-ui-chrome-extension.css"],
       "js": ["js/constants.js", "js/content_scripts.js", "js/jquery-1.7.2.min.js", "js/jquery-ui-1.8.20.min.js"]
     }
   ]

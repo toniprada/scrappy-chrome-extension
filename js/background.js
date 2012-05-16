@@ -23,8 +23,8 @@ https://github.com/josei/scrappy
 http://stackoverflow.com/questions/4445102/google-chrome-extension-highlight-the-div-that-the-mouse-is-hovering-over 
 - cvsguimaraes for:
 http://stackoverflow.com/questions/7391320/chrome-extension-using-sidebar
+- CSS Base http://yuilibrary.com/yui/docs/cssbase/
 */
-
 var tabid = null;
 
 /* ----------------- Request Handling ------------------*/

@@ -80,3 +80,20 @@ body {
 	margin: auto;
 	text-align: center;
 }
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent {
+	margin-top: 90px;
+	font-size: 14px;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent .eakjgooddkpnaedbjkbfoncimdkgamin_container {
+	margin:10px 5px 10px 5px;
+	padding:5px;
+	background:#E6E6E6;
+}
+
+#eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent .eakjgooddkpnaedbjkbfoncimdkgamin_element {
+	margin:5px;
+	padding: 5px;
+	background:#CCC;
+}

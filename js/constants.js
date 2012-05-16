@@ -35,11 +35,12 @@ CSS = {
 	classes: {
 		clearBoth:      'eakjgooddkpnaedbjkbfoncimdkgamin_clearBoth', 
 		mouse_visited: 	'eakjgooddkpnaedbjkbfoncimdkgamin_crx_mouse_visited',
-		sidebar: 		'eakjgooddkpnaedbjkbfoncimdkgamin_sidebar',
-		element: 		'eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_element',
-		elementText: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_text',
-		elementXPath:   'eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_xpath',
-		elementType: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_type',
-		elementDelete: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_delete'
+		sidebar: 		'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar',
+		container: 		'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_container',
+		element: 		'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_element',
+		elementText: 	'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_text',
+		elementXPath:   'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_xpath',
+		elementType: 	'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_type',
+		elementDelete: 	'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_delete'
 	}
 };
