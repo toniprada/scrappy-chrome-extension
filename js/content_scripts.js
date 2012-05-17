@@ -199,7 +199,9 @@ function toggleExtension() {
       <div id="' + CSS.ids.sidebarContent 
       + '" class="' + CSS.classes.sidebar +  '"></div>\
         <button id="' + CSS.ids.addButton + '"  class="' 
-        + CSS.classes.sidebar +  '">New element</button>\
+        + CSS.classes.sidebar +  '">New container</button>\
+        <button id="' + CSS.ids.submitButton + '"  class="' 
+        + CSS.classes.sidebar +  '">Send to Scrappy</button>\
         <p id="' + CSS.ids.sponsoredBy + '" class="' 
         + CSS.classes.sidebar +  '">Sponsored by:</p>\
         <img id="' + CSS.ids.sponsoredLogo + '" src="' 
@@ -211,6 +213,7 @@ function toggleExtension() {
       </div>';
     document.body.appendChild(sidebar);
     document.body.style.margin = '0 0 0 300px';
+    document.getElementById(CSS.ids.submitButton).style.visibility = 'hidden';
     var dialogs = document.createElement('div');
     dialogs.className = "hide";
     dialogs.id = CSS.ids.dialogs;
@@ -309,23 +312,26 @@ function addContainer(data) {
   container.className = CSS.classes.container;
   for(i=0; i<data.length; i++) {
     var info = data[i];
-    var div = document.createElement("div");
-    div.className = CSS.classes.element;
-    // Text of the clicked element:
-    var p = PARAGRAPH_TEXT.cloneNode(true)
-    p.innerHTML = 'type: ' + info.type + '\
-    text: ' + info.text + '\
-    ';
-    div.appendChild(p);
-    container.appendChild(div);
+    if (info.type != undefined && info.text != undefined) {
+      // TODO more validation
+      var div = document.createElement("div");
+      div.className = CSS.classes.element;
+      // Text of the clicked element:
+      var p = PARAGRAPH_TEXT.cloneNode(true)
+      p.innerHTML = 'TYPE: ' + info.type + '.\n\
+      TEXT: ' + info.text;
+      div.appendChild(p);
+      container.appendChild(div);
+    }
   }
   document.getElementById(CSS.ids.sidebarContent).appendChild(container);
+  document.getElementById(CSS.ids.submitButton).style.visibility = 'visible';
 }
 
 function submitInfo() {
     chrome.extension.sendRequest({
     action:"post_extractor", 
-    url:window.location.hostname, dataArray: packInfo(elements)}, 
+    url:window.location.href, dataArray: containers}, 
     function(response) {
       console.log(response.message);
     }
