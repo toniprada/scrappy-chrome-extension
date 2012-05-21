@@ -19,7 +19,7 @@ body {
 	margin: "0px 0px 0px 300px !important";
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar {	
+#scrappyChromeExtension_mySidebar {	
 	position:fixed;
 	top:0px;
 	left:0px;
@@ -31,68 +31,68 @@ body {
 	overflow: auto;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_scrappyLogo {
+#scrappyChromeExtension_mySidebar #scrappyChromeExtension_scrappyLogo {
 	float: left;
 	width: 180px;
 	margin: 20px 0px 20px 20px;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_gsiLogo {
+#scrappyChromeExtension_mySidebar #scrappyChromeExtension_gsiLogo {
 	float: right;
 	margin: 23px 20px 50px 0;
 	width: 50px;
 }
 
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_submitButtonScrappy {
+#scrappyChromeExtension_mySidebar #scrappyChromeExtension_submitButtonScrappy {
 	width: 200px;
 	padding: 5px;
 	margin: 20px auto;
 	display: block;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_addButtonScrappy {
+#scrappyChromeExtension_mySidebar #scrappyChromeExtension_addButtonScrappy {
 	width: 200px;
 	padding: 5px;
 	margin: auto;
 	display: block;
 }
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredBy {
+#scrappyChromeExtension_mySidebar #scrappyChromeExtension_sponsoredBy {
 	text-align:center;
 	margin-top: 60px;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar #eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredLogo {
+#scrappyChromeExtension_mySidebar #scrappyChromeExtension_sponsoredLogo {
 	height:100px;
 	display:block;
 	margin:auto;
 }
 
 
-#dialog-about #eakjgooddkpnaedbjkbfoncimdkgamin_financiacion {
+#dialog-about #scrappyChromeExtension_financiacion {
 	height: 170px;
 	margin-top: 40px;
 	margin-bottom: 50px;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_aboutLink {
+#scrappyChromeExtension_aboutLink {
 	display: block;
 	margin: auto;
 	text-align: center;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent {
+#scrappyChromeExtension_sidebarContent {
 	margin-top: 90px;
 	font-size: 14px;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent .eakjgooddkpnaedbjkbfoncimdkgamin_container {
+#scrappyChromeExtension_sidebarContent .scrappyChromeExtension_container {
 	margin:10px 5px 10px 5px;
 	padding:5px;
 	background:#E6E6E6;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent .eakjgooddkpnaedbjkbfoncimdkgamin_element {
+#scrappyChromeExtension_sidebarContent .scrappyChromeExtension_element {
 	margin:5px;
 	padding: 5px;
 	background:#CCC;

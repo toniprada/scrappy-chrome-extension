@@ -15,32 +15,39 @@ limitations under the License.
 @author Antonio Prada <toniprada@gmail.com>
 */
 
+
 CSS = {
 	ids: {
-		sidebar: 		'eakjgooddkpnaedbjkbfoncimdkgamin_mySidebar',
-		sidebarContent: 'eakjgooddkpnaedbjkbfoncimdkgamin_sidebarContent',
-		submitButton: 	'eakjgooddkpnaedbjkbfoncimdkgamin_submitButtonScrappy',
-		addButton: 		'eakjgooddkpnaedbjkbfoncimdkgamin_addButtonScrappy',
-		element: 		'eakjgooddkpnaedbjkbfoncimdkgamin_element',
-		scrappyLogo: 	'eakjgooddkpnaedbjkbfoncimdkgamin_scrappyLogo',
-		gsiLogo: 		'eakjgooddkpnaedbjkbfoncimdkgamin_gsiLogo',
-		sponsoredBy: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredBy',
-		sponsoredLogo: 	'eakjgooddkpnaedbjkbfoncimdkgamin_sponsoredLogo',
-		dialogContent: 	'eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent',
-		aboutLink: 		'eakjgooddkpnaedbjkbfoncimdkgamin_aboutLink',
-		financiacion: 	'eakjgooddkpnaedbjkbfoncimdkgamin_financiacion',
-		dialogs: 		'eakjgooddkpnaedbjkbfoncimdkgamin_dialogs'
+		sidebar: 		'scrappyChromeExtension_mySidebar',
+		sidebarContent: 'scrappyChromeExtension_sidebarContent',
+		submitButton: 	'scrappyChromeExtension_submitButtonScrappy',
+		addButton: 		'scrappyChromeExtension_addButtonScrappy',
+		element: 		'scrappyChromeExtension_element',
+		scrappyLogo: 	'scrappyChromeExtension_scrappyLogo',
+		gsiLogo: 		'scrappyChromeExtension_gsiLogo',
+		sponsoredBy: 	'scrappyChromeExtension_sponsoredBy',
+		sponsoredLogo: 	'scrappyChromeExtension_sponsoredLogo',
+		dialogContent: 	'scrappyChromeExtension_dialogContent',
+		aboutLink: 		'scrappyChromeExtension_aboutLink',
+		financiacion: 	'scrappyChromeExtension_financiacion',
+		dialogs: 		'scrappyChromeExtension_dialogs',
+		dialogForm: 	'scrappyChromeExtension_dialogForm',
+		dialogAbout: 	'scrappyChromeExtension_dialogAbout',
+		dialogInfo: 	'scrappyChromeExtension_dialogInfo'
 	},
 
 	classes: {
-		clearBoth:      'eakjgooddkpnaedbjkbfoncimdkgamin_clearBoth', 
-		mouse_visited: 	'eakjgooddkpnaedbjkbfoncimdkgamin_crx_mouse_visited',
-		sidebar: 		'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar',
-		container: 		'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_container',
-		element: 		'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_element',
-		elementText: 	'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_text',
-		elementXPath:   'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_xpath',
-		elementType: 	'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_type',
-		elementDelete: 	'yui3-cssreset yui3-cssbase eakjgooddkpnaedbjkbfoncimdkgamin_sidebar eakjgooddkpnaedbjkbfoncimdkgamin_delete'
+		clearBoth:      'scrappyChromeExtension_clearBoth', 
+		mouse_visited: 	'scrappyChromeExtension_crx_mouse_visited',
+		sidebar: 		'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar',
+		container: 		'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_container',
+		element: 		'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_element',
+		elementText: 	'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_text',
+		elementXPath:   'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_xpath',
+		elementType: 	'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_type',
+		elementDelete: 	'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_delete',
+		link: 			'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_link'
 	}
 };
+
+TYPES = ["sioc:Post", "dc:title"];

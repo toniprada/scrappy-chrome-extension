@@ -38,9 +38,8 @@ chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     clog(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
     if (request.action == "post_extractor") {
-     sendResponse({message:"received post extractor request"});
-     if(postExtractor(request.url, request.dataArray)) {
-        clog("Extractor sent to scrappy");
+     if(postExtractor(request.url, request.data)) {
+        sendResponse({message:"scrapper_received"});
      }
  }
 });
@@ -53,7 +52,7 @@ chrome.extension.onRequest.addListener(
 
 
 function postExtractor(url, data) {
-    var req = new XMLHttpRequest();
+    /* var req = new XMLHttpRequest();
     try {
         req.open("POST", "http://localhost:3434/extractors", true);
         req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -65,14 +64,15 @@ function postExtractor(url, data) {
             if (req.readyState == 4) {
                 if (req.status == 200) {
                   return true;
-              }
+             }
           } 
       };
     }
     catch (err) {
         clog("Exception: " + err.name + " - " + err.message);
         return false;
-    } 
+    }  */
+    return true;
 }
 
 function buildExtractor(url, data) {

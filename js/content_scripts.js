@@ -68,6 +68,9 @@ mouseClickListener = function (e) {
     && srcElement.className.indexOf("ui") == -1) {
     // The element clicked doesn't belong to the sidebar
     addElement(srcElement);
+    // Stop propagation of links to avoid navigating to another page
+    e.preventDefault();
+    e.stopPropagation();
   } else {
     // Sidebar element clicked
     if (srcElement.className == CSS.classes.elementDelete) {
@@ -78,11 +81,13 @@ mouseClickListener = function (e) {
       showAddElementDialog();
     } else if (srcElement.id == CSS.ids.aboutLink) {
       showAboutDialog();
+    } else if (srcElement.class = CSS.classes.link) {
+    } else {
+      // Stop propagation of links to avoid navigating to another page
+      e.preventDefault();
+      e.stopPropagation();
     }
   }
-// Stop propagation of links to avoid navigating to another page
-e.preventDefault();
-e.stopPropagation();
 }
 
     /* ------------------------------------------------*/
@@ -90,7 +95,7 @@ e.stopPropagation();
 
 
 function showAddElementDialog() {   
-    $( "#dialog-form" ).dialog({
+    $( "#" + CSS.ids.dialogForm ).dialog({
       autoOpen: false,
       height: 800,
       width: 400,
@@ -102,24 +107,19 @@ function showAddElementDialog() {
         "Create container": function() {
           submitContainer();
           $(this).dialog( "close" );
-          var cell = document.getElementById(CSS.ids.dialogContent);
-            if ( cell.hasChildNodes() ) {
-              while ( cell.childNodes.length >= 1 ) {
-              cell.removeChild( cell.firstChild );       
-            } 
-          }
+          deleteChilds(CSS.ids.dialogContent);
         }
       },
       close: function() {
         removeMoveListener();
       }
     });
-  $( "#dialog-form" ).dialog( "open" );
+  $( "#" +  CSS.ids.dialogForm ).dialog( "open" );
   addMoveListener();
 }
 
 function showAboutDialog() {   
-    $( "#dialog-about" ).dialog({
+    $( "#" + CSS.ids.dialogAbout).dialog({
       autoOpen: true,
       height: 700,
       width: 400,
@@ -129,7 +129,7 @@ function showAboutDialog() {
 
 
     /* ------------------------------------------------*/
-form
+
 function initParagraphText() {
     var p = document.createElement("p"); 
     p.className = CSS.classes.elementText; 
@@ -146,22 +146,13 @@ function initParagraphXPath() {
 function initSelectType() {
   var select= document.createElement("select");
   select.className = CSS.classes.elementType;
-  var option = document.createElement("option");
-  option.text = "wrapper";
-  option.value = "1";
-  select.add(option);
-  option = document.createElement("option");
-  option.text = "title";
-  option.value = "2";
-  select.add(option);
-  option = document.createElement("option");
-  option.text = "description";
-  option.value = "3";
-  select.add(option);
-  option = document.createElement("option");
-  option.text = "body";
-  option.value = "4";
-  select.add(option);
+  var option;
+  for (var i = 0; i < TYPES.length; i++ ) {
+    option = document.createElement("option");
+    option.text = TYPES[i];
+    option.value = i;
+    select.add(option);
+  }
   return select;
 }
 
@@ -218,21 +209,22 @@ function toggleExtension() {
     dialogs.className = "hide";
     dialogs.id = CSS.ids.dialogs;
     dialogs.innerHTML =  '\
-        <div id="dialog-form" class="' + CSS.classes.sidebar + '" title="Creating new container - ' +
+        <div id="' + CSS.ids.dialogForm + '" class="' + CSS.classes.sidebar + '" title="Creating new container - ' +
         'Click elements on the webpage to add them to the container" class="' 
         + CSS.classes.sidebar +  '">\
           <div id="' + CSS.ids.dialogContent + '" class="' 
           + CSS.classes.sidebar +  '">\
           </div>\
         </div>\
-        <div id="dialog-about" class="' + CSS.classes.sidebar + '" title="About" class="' 
+        <div id="' + CSS.ids.dialogAbout + '" class="' + CSS.classes.sidebar + '" title="About" class="' 
         + CSS.classes.sidebar +  '">\
           <p class="' + CSS.classes.sidebar +  '">\
           <img src="' + chrome.extension.getURL('img/logo_gsi.png') +
           '" class="' + CSS.classes.sidebar +  '" />\
           <img src="' + chrome.extension.getURL('img/episteme.jpg') +
           '" class="' + CSS.classes.sidebar +  '" />\
-          <img id="' + CSS.ids.financiacion + '" src="' + chrome.extension.getURL('img/financiacion150.jpg') +
+          <img id="' + CSS.ids.financiacion + '" src="' 
+          + chrome.extension.getURL('img/financiacion150.jpg') +
           '" class="' + CSS.classes.sidebar +  '" />\
           Proyecto cofinanciado por el Ministerio de Industria, Energía y '
           + 'Turismo, dentro del Plan Nacional de Investigación Científica, '
@@ -240,7 +232,11 @@ function toggleExtension() {
           + 'proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo '
           + ' de Desarrollo Regional (FEDER). Subprograma Avanza Competitividad '
           + 'I+D+i.\
-          </div>'
+          </div>\
+          <div id="' + CSS.ids.dialogInfo + '" class="' + CSS.classes.sidebar 
+          + '" title="Info" class="' 
+          + CSS.classes.sidebar +  '"></div>\
+          '
     document.body.appendChild(dialogs);
     document.addEventListener('click', mouseClickListener, false);
     sidebarOpen = true;
@@ -329,14 +325,38 @@ function addContainer(data) {
 }
 
 function submitInfo() {
-    chrome.extension.sendRequest({
+  deleteChilds(CSS.ids.dialogInfo);
+  var p = document.createElement("p");
+  p.innerText = "Extractor sent to scrappy: ";
+  document.getElementById(CSS.ids.dialogInfo).appendChild(p);
+  var a = document.createElement("a");
+  a.href = "http://localhost:3434/extractors";
+  a.className = CSS.classes.link;
+  a.innerText = "Click here";
+  document.getElementById(CSS.ids.dialogInfo).appendChild(a);
+
+   chrome.extension.sendRequest({
     action:"post_extractor", 
-    url:window.location.href, dataArray: containers}, 
+    url:window.location.href, data: containers}, 
     function(response) {
       console.log(response.message);
+      if (response.message == "scrapper_received") {
+        $( "#dialog:ui-dialog" ).dialog( "destroy" );
+  
+        $( "#" + CSS.ids.dialogInfo).dialog({
+          modal: true,
+          buttons: {
+            Ok: function() {
+              $( this ).dialog( "close" );
+            }
+          }
+        });
+      }
     }
-  );
+  ); 
 }
+
+
 
 
 
@@ -388,4 +408,13 @@ function removeMoveListener() {
       prevDOM.classList.remove(CSS.classes.mouse_visited);
     }
     prevDOM == null;
+}
+
+function deleteChilds(parentId) {
+  var cell = document.getElementById(parentId);
+    if ( cell.hasChildNodes() ) {
+      while ( cell.childNodes.length >= 1 ) {
+        cell.removeChild( cell.firstChild );       
+      } 
+    }
 }

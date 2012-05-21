@@ -15,7 +15,7 @@ limitations under the License.
 @author Antonio Prada <toniprada@gmail.com>
 */
 
-.eakjgooddkpnaedbjkbfoncimdkgamin_crx_mouse_visited {
+.scrappyChromeExtension_crx_mouse_visited {
   background-color: #bcd5eb !important;
   outline: 1px solid #5166bb !important;
 }
@@ -25,12 +25,12 @@ limitations under the License.
 	height:0px;
 };
 
-.eakjgooddkpnaedbjkbfoncimdkgamin_clearBoth {
+.scrappyChromeExtension_clearBoth {
 	clear:both;
 }
 
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent button {
+#scrappyChromeExtension_dialogContent button {
 	-webkit-box-align: center;
 	text-align: center;
 	cursor: default;
@@ -44,18 +44,18 @@ limitations under the License.
 	height: 30px;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent .eakjgooddkpnaedbjkbfoncimdkgamin_element select {
+#scrappyChromeExtension_dialogContent .scrappyChromeExtension_element select {
 	width: 80%;
 	height: 30px;
 	margin:0px;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent .eakjgooddkpnaedbjkbfoncimdkgamin_xpath {
+#scrappyChromeExtension_dialogContent .scrappyChromeExtension_xpath {
 	overflow: hidden;
 	font-style:italic;
 }
 
-#eakjgooddkpnaedbjkbfoncimdkgamin_dialogContent .eakjgooddkpnaedbjkbfoncimdkgamin_element {
+#scrappyChromeExtension_dialogContent .scrappyChromeExtension_element {
 	margin:10px 5px 10px 5px;
 	padding:5px;
 	background:#E6E6E6;
