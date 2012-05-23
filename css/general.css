@@ -29,8 +29,15 @@ limitations under the License.
 	clear:both;
 }
 
+#dialog-about img {
+	height: 100px;
+	margin: auto;
+	display: block;
+	margin-bottom: 20px;
+}
 
-#scrappyChromeExtension_dialogContent button {
+#scrappyChromeExtension_dialogContainer button, 
+#scrappyChromeExtension_dialogElements button {
 	-webkit-box-align: center;
 	text-align: center;
 	cursor: default;
@@ -44,27 +51,24 @@ limitations under the License.
 	height: 30px;
 }
 
-#scrappyChromeExtension_dialogContent .scrappyChromeExtension_element select {
+#scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element select, 
+#scrappyChromeExtension_dialogElements .scrappyChromeExtension_element select {
 	width: 80%;
 	height: 30px;
 	margin:0px;
 }
 
-#scrappyChromeExtension_dialogContent .scrappyChromeExtension_xpath {
+#scrappyChromeExtension_dialogContainer .scrappyChromeExtension_xpath,
+#scrappyChromeExtension_dialogElements .scrappyChromeExtension_xpath {
 	overflow: hidden;
 	font-style:italic;
 }
 
-#scrappyChromeExtension_dialogContent .scrappyChromeExtension_element {
+#scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element,
+#scrappyChromeExtension_dialogElements .scrappyChromeExtension_element {
 	margin:10px 5px 10px 5px;
 	padding:5px;
 	background:#E6E6E6;
 	font-size: 14px;
 }
 
-#dialog-about img {
-	height: 100px;
-	margin: auto;
-	display: block;
-	margin-bottom: 20px;
-}

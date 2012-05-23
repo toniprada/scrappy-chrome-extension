@@ -18,9 +18,16 @@ limitations under the License.
 const PARAGRAPH_TEXT = initParagraphText();
 const PARAGRAPH_XPATH = initParagraphXPath();
 const SELECT_TYPE = initSelectType();
+const SELECT_RELATION = initSelectRelation();
 const BUTTON_DELETE = initButtonDelete();
 const ORIGINAL_BODY_MARGIN = document.body.style.margin;
 
+const DIALOG_CONTAINER = 1;
+const DIALOG_ELEMENTS = 2;
+
+
+// what dialog is opened
+var dialogId = DIALOG_CONTAINER;
 // If extension is enabled
 var sidebarOpen = false;
 // Previous dom, that we want to track, so we can remove the previous styling.
@@ -78,7 +85,7 @@ mouseClickListener = function (e) {
     } else if (srcElement.id == CSS.ids.submitButton) {
       submitInfo();
     } else if (srcElement.id == CSS.ids.addButton) {
-      showAddElementDialog();
+      showContainerDialog();
     } else if (srcElement.id == CSS.ids.aboutLink) {
       showAboutDialog();
     } else if (srcElement.class = CSS.classes.link) {
@@ -90,31 +97,57 @@ mouseClickListener = function (e) {
   }
 }
 
-    /* ------------------------------------------------*/
+    /* ---------------  DIALOGS --------------------*/
 
-
-
-function showAddElementDialog() {   
-    $( "#" + CSS.ids.dialogForm ).dialog({
-      autoOpen: false,
-      height: 800,
-      width: 400,
-      modal: false,
-      buttons: {
-        Cancel: function() {
-          $(this).dialog( "close" );
-        },
-        "Create container": function() {
-          submitContainer();
-          $(this).dialog( "close" );
-          deleteChilds(CSS.ids.dialogContent);
-        }
+function showContainerDialog() {   
+  $( "#" + CSS.ids.dialogContainer ).dialog({
+    autoOpen: false,
+    height: 400,
+    width: 400,
+    modal: false,
+    buttons: {
+      Cancel: function() {
+        $(this).dialog( "close" );
       },
-      close: function() {
-        removeMoveListener();
+      "Next": function() {
+        $(this).dialog( "close" );
+        deleteChilds(CSS.ids.dialogContainer);
+        showElementsDialog();
       }
-    });
-  $( "#" +  CSS.ids.dialogForm ).dialog( "open" );
+    },
+    close: function() {
+      removeMoveListener();
+    }
+  });
+  dialogId = DIALOG_CONTAINER;
+  $( "#" +  CSS.ids.dialogContainer ).dialog( "open" );
+  addMoveListener();
+}
+
+
+function showElementsDialog() {   
+  $( "#" + CSS.ids.dialogElements ).dialog({
+    autoOpen: false,
+    height: 800,
+    width: 400,
+    modal: false,
+    buttons: {
+      Cancel: function() {
+        $(this).dialog( "close" );
+      },
+      "Create container": function() {
+        submitContainer();
+        $(this).dialog( "close" );
+        deleteChilds(CSS.ids.dialogElements);
+      }
+    },
+    close: function() {
+      removeMoveListener();
+    }
+  });
+  number = 0;
+  dialogId = DIALOG_ELEMENTS;
+  $( "#" +  CSS.ids.dialogElements ).dialog( "open" );
   addMoveListener();
 }
 
@@ -144,12 +177,20 @@ function initParagraphXPath() {
 
 
 function initSelectType() {
+  return initSelect(TYPES);
+}
+
+function initSelectRelation() {
+  return initSelect(RELATIONS);
+}
+
+function initSelect(options) {
   var select= document.createElement("select");
   select.className = CSS.classes.elementType;
   var option;
-  for (var i = 0; i < TYPES.length; i++ ) {
+  for (var i = 0; i < options.length; i++ ) {
     option = document.createElement("option");
-    option.text = TYPES[i];
+    option.text = options[i];
     option.value = i;
     select.add(option);
   }
@@ -190,7 +231,7 @@ function toggleExtension() {
       <div id="' + CSS.ids.sidebarContent 
       + '" class="' + CSS.classes.sidebar +  '"></div>\
         <button id="' + CSS.ids.addButton + '"  class="' 
-        + CSS.classes.sidebar +  '">New container</button>\
+        + CSS.classes.sidebar +  '">New resource</button>\
         <button id="' + CSS.ids.submitButton + '"  class="' 
         + CSS.classes.sidebar +  '">Send to Scrappy</button>\
         <p id="' + CSS.ids.sponsoredBy + '" class="' 
@@ -209,12 +250,13 @@ function toggleExtension() {
     dialogs.className = "hide";
     dialogs.id = CSS.ids.dialogs;
     dialogs.innerHTML =  '\
-        <div id="' + CSS.ids.dialogForm + '" class="' + CSS.classes.sidebar + '" title="Creating new container - ' +
-        'Click elements on the webpage to add them to the container" class="' 
+        <div id="' + CSS.ids.dialogElements + '" class="' + CSS.classes.sidebar 
+        + '" title="Select the data elements contained on the previously selected parent" class="' 
         + CSS.classes.sidebar +  '">\
-          <div id="' + CSS.ids.dialogContent + '" class="' 
-          + CSS.classes.sidebar +  '">\
-          </div>\
+        </div>\
+        <div id="' + CSS.ids.dialogContainer + '" class="' + CSS.classes.sidebar 
+        + '" title="Select the data parent" class="' 
+        + CSS.classes.sidebar +  '">\
         </div>\
         <div id="' + CSS.ids.dialogAbout + '" class="' + CSS.classes.sidebar + '" title="About" class="' 
         + CSS.classes.sidebar +  '">\
@@ -268,35 +310,41 @@ return count;
 }
 
 function addElement(elementClicked) {
-    // Add element to the sidebar
-    var div = document.createElement("div");
-    div.id = CSS.ids.element + number;
-    div.className = CSS.classes.element;
-    // Text of the clicked element:
-    var p = PARAGRAPH_TEXT.cloneNode(true)
-    p.innerHTML = elementClicked.innerText; 
-    div.appendChild(p);
-    var x = PARAGRAPH_XPATH.cloneNode(true)
-    x.innerHTML = getElementXPath(elementClicked); 
-    div.appendChild(x);
+  // Add element to the sidebar
+  var div = document.createElement("div");
+  div.id = CSS.ids.element + number;
+  div.className = CSS.classes.element;
+  // Text of the clicked element:
+  var p = PARAGRAPH_TEXT.cloneNode(true)
+  p.innerHTML = elementClicked.innerText; 
+  div.appendChild(p);
+  var x = PARAGRAPH_XPATH.cloneNode(true)
+  x.innerHTML = getElementXPath(elementClicked); 
+  div.appendChild(x);
+  if (dialogId == DIALOG_ELEMENTS) {
+    // Relation selection:
+    div.appendChild(SELECT_RELATION.cloneNode(true));
     // Delete button:
     var button = BUTTON_DELETE.cloneNode(true)
     button.id = number;
     div.appendChild(button);
-    // Type selection:
-    div.appendChild(SELECT_TYPE.cloneNode(true));
-    // Append the element to the list of elements:
-    document.getElementById(CSS.ids.dialogContent).appendChild(div);
+    // Append to parent
+    document.getElementById(CSS.ids.dialogElements).appendChild(div);
     number++;
+  } else if (dialogId == DIALOG_CONTAINER) {
+    div.appendChild(SELECT_TYPE.cloneNode(true));
+    deleteChilds(CSS.ids.dialogContainer);
+    document.getElementById(CSS.ids.dialogContainer).appendChild(div)
   }
+}
 
 function removeElement(deleteButtonClicked) {
   var element = document.getElementById(CSS.ids.element + deleteButtonClicked.id);
-  document.getElementById(CSS.ids.dialogContent).removeChild(element);
+  document.getElementById(CSS.ids.dialogElements).removeChild(element);
 }
 
 function submitContainer() {
-  var elements = document.getElementById(CSS.ids.dialogContent).childNodes;
+  var elements = document.getElementById(CSS.ids.dialogElements).childNodes;
   var data = packInfo(elements);
   // console.log(data);
   addContainer(data);

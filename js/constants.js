@@ -31,9 +31,10 @@ CSS = {
 		aboutLink: 		'scrappyChromeExtension_aboutLink',
 		financiacion: 	'scrappyChromeExtension_financiacion',
 		dialogs: 		'scrappyChromeExtension_dialogs',
-		dialogForm: 	'scrappyChromeExtension_dialogForm',
 		dialogAbout: 	'scrappyChromeExtension_dialogAbout',
-		dialogInfo: 	'scrappyChromeExtension_dialogInfo'
+		dialogInfo: 	'scrappyChromeExtension_dialogInfo',
+		dialogContainer:'scrappyChromeExtension_dialogContainer',
+		dialogForm: 	'scrappyChromeExtension_dialogElements'
 	},
 
 	classes: {
@@ -50,4 +51,5 @@ CSS = {
 	}
 };
 
-TYPES = ["sioc:Post", "dc:title"];
+TYPES = ["sioc:Post","sioc:Post","sioc:Post"];
+RELATIONS = ["dc:title","dc:title","dc:title"];
