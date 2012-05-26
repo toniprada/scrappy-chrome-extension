@@ -9,7 +9,7 @@ Scrappy is a tool that allows extracting information from web pages and producin
 It uses the scraping ontology to define the mappings between HTML contents and RDF data.
 ```
 
-Scrappy can be found [here](https://github.com/josei/scrappy) 
+Scrappy can be found [here](https://github.com/josei/scrappy).
 
 ## How to install
 
@@ -30,16 +30,24 @@ Nacional de Investigación Científica, Desarrollo e Innovación Tecnológica 20
 Regional (FEDER). Subprograma Avanza Competitividad I+D+i.
 ```
 
+## Thanks to
+
+- Jose Ignacio Fernandez (josei) for [scrappy](https://github.com/josei/scrappy).
+- Mohamed Mansour for [this StackOverflow post](http://stackoverflow.com/questions/4445102/google-chrome-extension-highlight-the-div-that-the-mouse-is-hovering-over).
+- cvsguimaraes for [this StackOverflow post](http://stackoverflow.com/questions/7391320/chrome-extension-using-sidebar).
+- [CSS Base](http://yuilibrary.com/yui/docs/cssbase/) and [CSS Reset](http://yuilibrary.com/yui/docs/cssreset/).
+
 ## License
 
 ```
-Copyright 2012 UPM-GSI: Group of Intelligent Systems - Universidad Politécnica de Madrid (UPM)
+Copyright 2012 UPM-GSI: Group of Intelligent Systems - Universidad Politécnica 
+de Madrid (UPM)
 
-Licensed under the Apache License, Version 2.0 (the "License"); 
-you may not use this file except in compliance with the License. 
-You may obtain a copy of the  License at http://www.apache.org/licenses/LICENSE-2.0
-Unless required by applicable law or agreed to in writing, software distributed under 
-the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, 
-either express or implied. See the License for the specific language governing permissions 
-and limitations under the License.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use 
+this file except in compliance with the License. You may obtain a copy of the 
+License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by 
+applicable law or agreed to in writing, software distributed 
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR 
+CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+specific language governing permissions and limitations under the License.
 ```

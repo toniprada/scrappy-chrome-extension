@@ -12,16 +12,6 @@ specific language governing permissions and limitations under the License.
 
 @author Antonio Prada <toniprada@gmail.com>
 
-Thanks to:
-- Jose Ignacio Fernandez (josei) for scrappy: 
-https://github.com/josei/scrappy
-- Mohamed Mansour for:
-http://stackoverflow.com/questions/4445102/google-chrome-extension-highlight-the-div-that-the-mouse-is-hovering-over 
-- cvsguimaraes for:
-http://stackoverflow.com/questions/7391320/chrome-extension-using-sidebar
-- CSS Base and CSS Reset
-http://yuilibrary.com/yui/docs/cssbase/
-http://yuilibrary.com/yui/docs/cssreset/
 */
 var tabid = null;
 
