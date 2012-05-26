@@ -23,10 +23,12 @@ Developed by Antonio Prada (<toniprada@gmail.com>) at [GSI]("http://www.gsi.dit.
 
 Sponsored by [Global Metanoia]("http://www.globalmetanoia.com/") and the Spanish Ministry of Industry, Energy and Tourism:
 
-```Proyecto cofinanciado por el Ministerio de Industria, Energía y Turismo, dentro del Plan 
+```
+Proyecto cofinanciado por el Ministerio de Industria, Energía y Turismo, dentro del Plan 
 Nacional de Investigación Científica, Desarrollo e Innovación Tecnológica 2008-2011 
 (Referencia proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo de Desarrollo 
-Regional (FEDER). Subprograma Avanza Competitividad I+D+i.```
+Regional (FEDER). Subprograma Avanza Competitividad I+D+i.
+```
 
 ## License
 
