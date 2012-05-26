@@ -19,9 +19,9 @@ The scrappy icon will appear on the chrome toolbar, push it to enable the extens
 
 ## Contributors
 
-Developed by Antonio Prada (<toniprada@gmail.com>) at [GSI]("http://www.gsi.dit.upm.es/"), ETSIT-UPM.
+Developed by Antonio Prada (<toniprada@gmail.com>) at [GSI](http://www.gsi.dit.upm.es/), ETSIT-UPM.
 
-Sponsored by [Global Metanoia]("http://www.globalmetanoia.com/") and the Spanish Ministry of Industry, Energy and Tourism:
+Sponsored by [Global Metanoia](http://www.globalmetanoia.com/) and the Spanish Ministry of Industry, Energy and Tourism:
 
 ```
 Proyecto cofinanciado por el Ministerio de Industria, Energía y Turismo, dentro del Plan 
