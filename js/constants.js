@@ -24,16 +24,16 @@ CSS = {
 		elementType: 	'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_type',
 		elementXPath:   'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_xpath',
 		extension: 		'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar',
-		link: 			'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_link'
-		mouse_visited: 	'scrappyChromeExtension_crx_mouse_visited',
-	}
+		link: 			'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_link',
+		mouse_visited: 	'scrappyChromeExtension_crx_mouse_visited'
+	},
 	ids: {
 		aboutLink: 		'scrappyChromeExtension_aboutLink',
 		addButton: 		'scrappyChromeExtension_addButtonScrappy',
 		dialogAbout: 	'scrappyChromeExtension_dialogAbout',
 		dialogContainer:'scrappyChromeExtension_dialogContainer',
 		dialogContent: 	'scrappyChromeExtension_dialogContent',
-		dialogElements: 'scrappyChromeExtension_dialogElements'
+		dialogElements: 'scrappyChromeExtension_dialogElements',
 		dialogInfo: 	'scrappyChromeExtension_dialogInfo',
 		dialogs: 		'scrappyChromeExtension_dialogs',
 		element: 		'scrappyChromeExtension_element',
@@ -44,8 +44,8 @@ CSS = {
 		sidebarContent: 'scrappyChromeExtension_sidebarContent',
 		sponsoredBy: 	'scrappyChromeExtension_sponsoredBy',
 		sponsoredLogo: 	'scrappyChromeExtension_sponsoredLogo',
-		submitButton: 	'scrappyChromeExtension_submitButtonScrappy',
-	},
+		submitButton: 	'scrappyChromeExtension_submitButtonScrappy'
+	}
 };
 
 RELATIONS = ["dc:title","dc:title","dc:title"];
