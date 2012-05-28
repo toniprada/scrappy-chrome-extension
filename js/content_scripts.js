@@ -149,7 +149,7 @@ function toggleExtension() {
     // Remove UI from the page DOM
     var el = document.getElementById(CSS.ids.sidebar);
     el.parentNode.removeChild(el);
-    el = document.getElementById(CSS.ids.dialogs);
+    el = document.getElementById(CSS.ids.dialogs);http://localhost:3434/extractors
     el.parentNode.removeChild(el);
     document.body.style.margin = ORIGINAL_BODY_MARGIN;
     // Remove listeners
@@ -274,7 +274,7 @@ function showElementsDialog() {
       Cancel: function() {
         $(this).dialog( "close" );
       },
-      "Create container": function() {
+      "Create resource": function() {
         addResourceToTheSidebar();
         $(this).dialog( "close" );
       }
@@ -310,7 +310,7 @@ function addContainerToCurrentResource() {
       if (info.className == CSS.classes.elementText) {
         currentResource.container.text = info.innerText;
       } else if (info.className == CSS.classes.elementXPath) {
-        currentResource.container.xpath = info.innerText;
+        currentResource.container.xpath = '/html/' + info.innerText;
       } else if (info.className == CSS.classes.elementType) {
         var index = info.selectedIndex;
         currentResource.container.type = info.options[index].text;
@@ -356,7 +356,7 @@ function removeElementFromTheDialog(buttonClicked) {
 }
 
 function getElementXPath(elt){
- var path = "";
+/* var path = "";
  for (; elt && elt.nodeType == 1; elt = elt.parentNode)
  {
   idx = getElementIdx(elt);
@@ -364,8 +364,27 @@ function getElementXPath(elt){
   if (idx > 1) xname += "[" + idx + "]";
   path = "/" + xname + path;
 }
-return path.toLowerCase();
+return path.toLowerCase();*/
+return getPathTo(elt).toLowerCase();
 }
+
+function getPathTo(element) {
+ //   if (element.id!=='')
+//        return 'id(\'' +element.id+'\')';
+    if (element===document.body)
+        return element.tagName;
+
+    var ix= 0;
+    var siblings= element.parentNode.childNodes;
+    for (var i= 0; i<siblings.length; i++) {
+        var sibling= siblings[i];
+        if (sibling===element)
+            return getPathTo(element.parentNode)+'/'+element.tagName+'['+(ix+1)+']';
+        if (sibling.nodeType===1 && sibling.tagName===element.tagName)
+            ix++;
+    }
+}
+
 
 function getElementIdx(elt){
   var count = 1;
@@ -378,7 +397,7 @@ return count;
 function addResourceToTheSidebar() {
   var elements = document.getElementById(CSS.ids.dialogElements).childNodes;
   addElementsToCurrentResource(elements);
-  console.log(currentResource);
+  //console.log(currentResource);
   resources[resources.length] = currentResource;
   // Add data to the sidebar:
   var container = document.createElement("div");
@@ -395,13 +414,14 @@ function addResourceToTheSidebar() {
       TEXT: ' + info.text;
       div.appendChild(p);
       container.appendChild(div);
-    }
+    } 
   }
   document.getElementById(CSS.ids.sidebarContent).appendChild(container);
   document.getElementById(CSS.ids.submitButton).style.visibility = 'visible';
 }
 
 function submitInfo() {
+  console.log(resources);
   deleteChildsFromElement(CSS.ids.dialogInfo);
   var p = document.createElement("p");
   p.innerText = "Extractor sent to scrappy: ";
@@ -444,13 +464,18 @@ function addElementsToCurrentResource(elements) {
       if (info.className == CSS.classes.elementText) {
       currentResource.elements[i].text = info.innerText;
       } else if (info.className == CSS.classes.elementXPath) {
-      currentResource.elements[i].xpath = info.innerText;
+      currentResource.elements[i].xpath = '/html/' + info.innerText;
       } else if (info.className == CSS.classes.elementType) {
         var index = info.selectedIndex;
-      currentResource.elements[i].type = info.options[index].text;
+        currentResource.elements[i].type = info.options[index].text;
       }
     }
   }
+  /*for (var l=0; l< currentResource.elements.length; l++) {
+    if (currentResource.elements[l].type == undefined) {
+      currentResource.elements.splice(l,1);
+    }
+  } */
   /*var formattedData = {};
     for(i=0; i<data.length; i++) {
         var info = data[i];

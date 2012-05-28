@@ -27,11 +27,10 @@ chrome.extension.onRequest.addListener(
     clog(sender.tab ? "from a content script:" 
         + sender.tab.url: "from the extension");
     if (request.action == "post_extractor") {
-       if(postExtractor(request.url, request.data)) {
-        sendResponse({message:"scrapper_received"});
+       postExtractor(request.url, request.data, sendResponse);
     }
   }
-});
+);
 
 /* ------------------ Initialization -------------------*/
 
@@ -40,8 +39,8 @@ chrome.extension.onRequest.addListener(
 /* ------------------- Functions --------------------*/
 
 
-function postExtractor(url, data) {
-  /* var req = new XMLHttpRequest();
+function postExtractor(url, data, sendResponse) {
+  var req = new XMLHttpRequest();
   try {
       req.open("POST", "http://localhost:3434/extractors", true);
       req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
@@ -52,16 +51,14 @@ function postExtractor(url, data) {
           clog("readystate:" + req.readyState + " status:" + req.status);
           if (req.readyState == 4) {
               if (req.status == 200) {
-                return true;
-           }
-        } 
-    };
+                sendResponse({message:"scrapper_received"});
+              }
+          } 
+      };
   }
   catch (err) {
       clog("Exception: " + err.name + " - " + err.message);
-      return false;
-  }  */
-  return true;
+  }  
 }
 
 function buildExtractor(url, data) {
@@ -69,36 +66,42 @@ function buildExtractor(url, data) {
   s += 'sc: http://lab.gsi.dit.upm.es/scraping.rdf#\n';
   s += 'loc: http://www.daml.org/experiment/ontology/location-ont#\n';
   s += '\n';    
-  s += '*:\n';
-  s += '  rdf:type: sc:Fragment\n';
-  s += '  sc:selector:\n';
-  s += '    *:\n';
-  s += '      rdf:type: sc:UriSelector\n';
-  s += '      rdf:value: "http://' + url + '/"\n';
-  s += '  sc:identifier:\n';
-  s += '    *:\n';
-  s += '      rdf:type: sc:BaseUriSelector\n';
-  s += '  sc:subfragment:\n';
-  s += '    *:\n';
-  s += '      sc:type: sioc:Post\n';
-  s += '      sc:selector:\n';
-  s += '        *:\n';
-  s += '          rdf:type: sc:XPathSelector\n';
-  s += '          rdf:value: "' + data.wrapper.xpath + '"\n';
-  s += '      sc:identifier:\n';
-  s += '        *:\n';
-  s += '          rdf:type: sc:XPathSelector\n';
-  s += '          rdf:value: "' + data.title.xpath + '"\n';
-  s += '          sc:attribute: "href"\n';
-  s += '      sc:subfragment:\n';
-  s += '        *:\n';
-  s += '          sc:type:     rdf:Literal\n';
-  s += '          sc:relation: dc:title\n';
-  s += '          sc:selector:\n';
-  s += '            *:\n';
-  s += '              rdf:type:  sc:XPathSelector\n';
-  s += '              rdf:value: "' +  data.title.xpath  + '"\n';
-  return s
+  for (var i = 0; i < data.length; i++) {
+    s += '*:\n';
+    s += '  rdf:type: sc:Fragment\n';
+    s += '  sc:selector:\n';
+    s += '    *:\n';
+    s += '      rdf:type: sc:UriSelector\n';
+    s += '      rdf:value: "' + url + '"\n';
+    s += '  sc:identifier:\n';
+    s += '    *:\n';
+    s += '      rdf:type: sc:BaseUriSelector\n';
+    s += '  sc:subfragment:\n';
+    s += '    *:\n';
+    s += '      sc:type: ' + data[i].container.type + '\n';
+    s += '      sc:selector:\n';
+    s += '        *:\n';
+    s += '          rdf:type: sc:XPathSelector\n';
+    s += '          rdf:value: "' + data[i].container.xpath + '"\n';
+    for (var j = 0; j < data[i].elements.length; j++) {
+//    s += '      sc:identifier:\n';
+//    s += '        *:\n';
+//    s += '          rdf:type: sc:XPathSelector\n';
+//    s += '          rdf:value: "' + data.title.xpath + '"\n';
+//   s += '          sc:attribute: "href"\n';
+    s += '      sc:subfragment:\n';
+    s += '        *:\n';
+    s += '          sc:type:     rdf:Literal\n';
+    s += '          sc:relation: ' + data[i].elements[j].type + '\n';
+    s += '          sc:selector:\n';
+    s += '            *:\n';
+    s += '              rdf:type:  sc:XPathSelector\n';
+    s += '              rdf:value: "' +  data[i].elements[j].xpath   + '"\n';
+    s += '\n';
+    }
+  }
+  clog(s);
+  return s;
 }
 
 function clog(val) {

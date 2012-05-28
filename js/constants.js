@@ -48,5 +48,5 @@ CSS = {
 	}
 };
 
-RELATIONS = ["dc:title","dc:title","dc:title"];
-TYPES = ["sioc:Post","sioc:Post","sioc:Post"];
+RELATIONS = ["dc:creator", "dc:date" , "dc:description" ,"dc:title", "loc:Location"];
+TYPES = ["sioc:Post"];
