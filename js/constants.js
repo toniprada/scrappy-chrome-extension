@@ -23,7 +23,7 @@ CSS = {
 		elementText: 	'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_text',
 		elementType: 	'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_type',
 		elementXPath:   'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_xpath',
-		extension: 		'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar',
+		extension: 		'yui3-cssreset yui3-cssbase scrappyChromeExtension_extension',
 		link: 			'yui3-cssreset yui3-cssbase scrappyChromeExtension_sidebar scrappyChromeExtension_link',
 		mouse_visited: 	'scrappyChromeExtension_crx_mouse_visited'
 	},

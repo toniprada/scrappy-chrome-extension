@@ -81,18 +81,18 @@ body {
 	text-align: center;
 }
 
-#scrappyChromeExtension_sidebarContent {
+#scrappyChromeExtension_extensionContent {
 	margin-top: 90px;
 	font-size: 14px;
 }
 
-#scrappyChromeExtension_sidebarContent .scrappyChromeExtension_container {
+#scrappyChromeExtension_extensionContent .scrappyChromeExtension_container {
 	margin:10px 5px 10px 5px;
 	padding:5px;
 	background:#E6E6E6;
 }
 
-#scrappyChromeExtension_sidebarContent .scrappyChromeExtension_element {
+#scrappyChromeExtension_extensionContent .scrappyChromeExtension_element {
 	margin:5px;
 	padding: 5px;
 	background:#CCC;

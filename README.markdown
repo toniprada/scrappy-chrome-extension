@@ -1,6 +1,6 @@
 # Scrappy chrome extension
 
-This is a Chrome extension for a easier use of scrappy. At this time it's just an alpha, but a beta *working* version will be available very soon.
+This is a Chrome extension for a easier use of scrappy. It allows to specify what elements of a web page should be scrapped, but Scrappy won't generalize more elements as that function is under development at the moment. (watch [Scrappy](https://github.com/josei/scrappy) for updates).
 
 ## What is Scrappy 
 
@@ -13,7 +13,7 @@ Scrappy can be found [here](https://github.com/josei/scrappy).
 
 ## How to install
 
-Open Chrome and select *Settings button*->Tools->Extensions, check *Developer mode*, click *Load unpacked extension* and select the folder where this project is.
+Open Chrome and select *Settings button*->*Tools*->*Extensions*, check *Developer mode*, click *Load unpacked extension* and select the folder where this project is.
 
 The scrappy icon will appear on the chrome toolbar, push it to enable the extension on the current page.
 
