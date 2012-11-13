@@ -1,6 +1,7 @@
 {
   "name": "Scrappy",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "manifest_version": 2,
   "description": "A chrome extension for scrappy.",
   "default_locale": "en",
   "background": {
@@ -14,15 +15,49 @@
     "48": "img/logo48.png",
     "128": "img/logo128.png"
   },
-   "browser_action": {
-      "default_icon": "img/logo48.png",
-      "default_title": "Scrappy"
-   },
+  "browser_action": {
+    "default_icon": "img/logo48.png",
+    "default_title": "Scrappy"
+  },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "css": ["css/cssreset-context-min.css", "css/cssbase-context-min.css", "css/general.css", "css/sidebar.css", "css/smoothness/jquery-ui-1.8.20.css", "css/smoothness/jquery-ui-chrome-extension.css"],
-      "js": ["js/constants.js", "js/content_scripts.js", "js/jquery-1.7.2.min.js", "js/jquery-ui-1.8.20.min.js"]
+      "css": [
+        "css/cssreset-context-min.css", 
+        "css/cssbase-context-min.css", 
+        "css/general.css", 
+        "css/sidebar.css", 
+        "css/smoothness/jquery-ui-1.9.1.custom.min.css",
+        "css/smoothness/jquery-ui-chrome-extension.css"
+      ],
+      "js": [
+        "js/constants.js", 
+        "js/sidebar.js", 
+        "js/content_scripts.js", 
+        "js/jquery-1.8.2.min.js", 
+        "js/jquery-ui-1.9.1.custom.min.js"
+      ],
+      "all_frames": true
     }
+  ],
+  "web_accessible_resources": [
+    "html/sidebar.html", 
+    "img/logo_gsi.png", 
+    "img/financiacion150.jpg", 
+    "img/episteme.jpg",
+    "img/globalmetanoia.jpg",
+    "css/smoothness/images/ui-bg_flat_0_aaaaaa_40x100.png",
+    "css/smoothness/images/ui-bg_flat_75_ffffff_40x100.png",
+    "css/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png",
+    "css/smoothness/images/ui-bg_glass_65_ffffff_1x400.png",
+    "css/smoothness/images/ui-bg_glass_75_dadada_1x400.png",
+    "css/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png",
+    "css/smoothness/images/ui-bg_glass_95_fef1ec_1x400.png",
+    "css/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png",
+    "css/smoothness/images/ui-icons_2e83ff_256x240.png",
+    "css/smoothness/images/ui-icons_222222_256x240.png",
+    "css/smoothness/images/ui-icons_454545_256x240.png",
+    "css/smoothness/images/ui-icons_888888_256x240.png",
+    "css/smoothness/images/ui-icons_cd0a0a_256x240.png"
   ]
 }

@@ -14,86 +14,220 @@ limitations under the License.
 
 @author Antonio Prada <toniprada@gmail.com>
 */
-
-body {
-	margin: "0px 0px 0px 300px !important";
+/* line 20, ../sass/sidebar.scss */
+#mySidebar {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 300px;
+  height: 100%;
+  box-shadow: inset 0 0 1em black;
+  z-index: 999999;
+  overflow: auto;
+  background: #F2F2F2;
 }
 
-#scrappyChromeExtension_mySidebar {	
-	position:fixed;
-	top:0px;
-	left:0px;
-	width:300px;
-	height:100%;
-	background:white;
-	box-shadow:inset 0 0 1em black;
-	z-index:999999;
-	overflow: auto;
+/* line 32, ../sass/sidebar.scss */
+#sponsored {
+  margin: 8px 0px 48px 0px;
+  text-align: center;
+  width: 100%;
+  font-size: 0.8em;
 }
 
-#scrappyChromeExtension_mySidebar #scrappyChromeExtension_scrappyLogo {
-	float: left;
-	width: 180px;
-	margin: 20px 0px 20px 20px;
+/* line 39, ../sass/sidebar.scss */
+#scrappyLogo {
+  float: left;
+  width: 180px;
+  margin: 20px 0px 0px 20px;
 }
 
-#scrappyChromeExtension_mySidebar #scrappyChromeExtension_gsiLogo {
-	float: right;
-	margin: 23px 20px 50px 0;
-	width: 50px;
+/* line 45, ../sass/sidebar.scss */
+#gsiLogo {
+  float: right;
+  margin: 23px 15px 0px 0px;
+  width: 50px;
 }
 
-
-#scrappyChromeExtension_mySidebar #scrappyChromeExtension_submitButtonScrappy {
-	width: 200px;
-	padding: 5px;
-	margin: 20px auto;
-	display: block;
+/* line 52, ../sass/sidebar.scss */
+#extensionContent {
+  margin-top: 90px;
+  font-size: 14px;
 }
 
-#scrappyChromeExtension_mySidebar #scrappyChromeExtension_addButtonScrappy {
-	width: 200px;
-	padding: 5px;
-	margin: auto;
-	display: block;
-}
-#scrappyChromeExtension_mySidebar #scrappyChromeExtension_sponsoredBy {
-	text-align:center;
-	margin-top: 60px;
+/* line 57, ../sass/sidebar.scss */
+#extensionContent .container {
+  margin: 10px 5px 10px 5px;
+  padding: 5px;
+  background: #E6E6E6;
 }
 
-#scrappyChromeExtension_mySidebar #scrappyChromeExtension_sponsoredLogo {
-	height:100px;
-	display:block;
-	margin:auto;
+/* line 63, ../sass/sidebar.scss */
+#extensionContent .element {
+  margin: 5px;
+  padding: 5px;
+  background: #CCC;
 }
 
-
-#dialog-about #scrappyChromeExtension_financiacion {
-	height: 170px;
-	margin-top: 40px;
-	margin-bottom: 50px;
+/* line 69, ../sass/sidebar.scss */
+.clearBoth {
+  clear: both;
 }
 
-#scrappyChromeExtension_aboutLink {
-	display: block;
-	margin: auto;
-	text-align: center;
+/* line 73, ../sass/sidebar.scss */
+.hide {
+  visibility: hidden;
+  height: 0px;
 }
 
-#scrappyChromeExtension_extensionContent {
-	margin-top: 90px;
-	font-size: 14px;
+/* line 78, ../sass/sidebar.scss */
+.button {
+  font-size: 20px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  width: 200px;
+  padding: 5px;
+  margin: 20px auto;
+  display: block;
 }
 
-#scrappyChromeExtension_extensionContent .scrappyChromeExtension_container {
-	margin:10px 5px 10px 5px;
-	padding:5px;
-	background:#E6E6E6;
+/* line 86, ../sass/sidebar.scss */
+.red {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFE86A43', endColorstr='#FFB03A15');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f0a087), color-stop(70%, #e86a43));
+  background: -webkit-linear-gradient(#f0a087, #e86a43 70%);
+  background: -moz-linear-gradient(#f0a087, #e86a43 70%);
+  background: -o-linear-gradient(#f0a087, #e86a43 70%);
+  background: linear-gradient(#f0a087, #e86a43 70%);
+  -webkit-box-shadow: #f9d6cb 0 1px 0 inset;
+  -moz-box-shadow: #f9d6cb 0 1px 0 inset;
+  box-shadow: #f9d6cb 0 1px 0 inset;
+  border: 1px solid #e5582c;
+  color: white;
+  text-shadow: #d6471a 0 -1px 0;
+}
+/* line 15, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.red:hover {
+  text-decoration: none;
+}
+/* line 18, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.red:hover {
+  background-color: #e5582c;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #ee8e70), color-stop(75%, #e5582c));
+  background: -webkit-linear-gradient(#ee8e70 3%, #e5582c 75%);
+  background: -moz-linear-gradient(#ee8e70 3%, #e5582c 75%);
+  background: -o-linear-gradient(#ee8e70 3%, #e5582c 75%);
+  background: linear-gradient(#ee8e70 3%, #e5582c 75%);
+}
+/* line 21, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.red:active {
+  -webkit-box-shadow: #e44d1f 0 1px 2px inset;
+  -moz-box-shadow: #e44d1f 0 1px 2px inset;
+  box-shadow: #e44d1f 0 1px 2px inset;
+}
+/* line 6, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.red.disabled, .red[disabled] {
+  opacity: 0.6;
+  background: #e86a43;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
-#scrappyChromeExtension_extensionContent .scrappyChromeExtension_element {
-	margin:5px;
-	padding: 5px;
-	background:#CCC;
+/* line 88, ../sass/sidebar.scss */
+.blue {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF4D8CCD', endColorstr='#FF27598D');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #89b3de), color-stop(70%, #4d8ccd));
+  background: -webkit-linear-gradient(#89b3de, #4d8ccd 70%);
+  background: -moz-linear-gradient(#89b3de, #4d8ccd 70%);
+  background: -o-linear-gradient(#89b3de, #4d8ccd 70%);
+  background: linear-gradient(#89b3de, #4d8ccd 70%);
+  -webkit-box-shadow: #c4d9ef 0 1px 0 inset;
+  -moz-box-shadow: #c4d9ef 0 1px 0 inset;
+  box-shadow: #c4d9ef 0 1px 0 inset;
+  border: 1px solid #397fc7;
+  color: white;
+  text-shadow: #316fae 0 -1px 0;
+}
+/* line 15, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.blue:hover {
+  text-decoration: none;
+}
+/* line 18, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.blue:hover {
+  background-color: #397fc7;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #75a6d8), color-stop(75%, #397fc7));
+  background: -webkit-linear-gradient(#75a6d8 3%, #397fc7 75%);
+  background: -moz-linear-gradient(#75a6d8 3%, #397fc7 75%);
+  background: -o-linear-gradient(#75a6d8 3%, #397fc7 75%);
+  background: linear-gradient(#75a6d8 3%, #397fc7 75%);
+}
+/* line 21, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.blue:active {
+  -webkit-box-shadow: #3578bc 0 1px 2px inset;
+  -moz-box-shadow: #3578bc 0 1px 2px inset;
+  box-shadow: #3578bc 0 1px 2px inset;
+}
+/* line 6, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.blue.disabled, .blue[disabled] {
+  opacity: 0.6;
+  background: #4d8ccd;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+/* line 90, ../sass/sidebar.scss */
+.green {
+  *zoom: 1;
+  filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF8CBE5F', endColorstr='#FF598235');
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #b3d495), color-stop(70%, #8cbe5f));
+  background: -webkit-linear-gradient(#b3d495, #8cbe5f 70%);
+  background: -moz-linear-gradient(#b3d495, #8cbe5f 70%);
+  background: -o-linear-gradient(#b3d495, #8cbe5f 70%);
+  background: linear-gradient(#b3d495, #8cbe5f 70%);
+  -webkit-box-shadow: #daeacc 0 1px 0 inset;
+  -moz-box-shadow: #daeacc 0 1px 0 inset;
+  box-shadow: #daeacc 0 1px 0 inset;
+  border: 1px solid #7fb74d;
+  color: white;
+  text-shadow: #6fa141 0 -1px 0;
+}
+/* line 15, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.green:hover {
+  text-decoration: none;
+}
+/* line 18, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.green:hover {
+  background-color: #7fb74d;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(3%, #a6cd83), color-stop(75%, #7fb74d));
+  background: -webkit-linear-gradient(#a6cd83 3%, #7fb74d 75%);
+  background: -moz-linear-gradient(#a6cd83 3%, #7fb74d 75%);
+  background: -o-linear-gradient(#a6cd83 3%, #7fb74d 75%);
+  background: linear-gradient(#a6cd83 3%, #7fb74d 75%);
+}
+/* line 21, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.green:active {
+  -webkit-box-shadow: #77ae47 0 1px 2px inset;
+  -moz-box-shadow: #77ae47 0 1px 2px inset;
+  box-shadow: #77ae47 0 1px 2px inset;
+}
+/* line 6, ../../../../../var/lib/gems/1.8/gems/sassy-buttons-0.1.4/stylesheets/sassy-buttons/_sassy-button-pseudo-states.sass */
+.green.disabled, .green[disabled] {
+  opacity: 0.6;
+  background: #8cbe5f;
+  cursor: default;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }

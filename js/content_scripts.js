@@ -40,15 +40,17 @@ var resources = new Array();
 
 /* ------------------------- Request Handling --------------------------------*/
 
-chrome.extension.onRequest.addListener(
+chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
-    if (request.callFunction === "consoleLog") {
-      // Log stuff from the background js
-      console.log(request.value);
-    } else if (request.callFunction === "toggleExtension") {
+    if (request.callFunction == "toggleExtension") {
       // Enable-disable the extension
       toggleExtension();
-    }
+    } else if (request.callFunction == "consoleLog") {
+      // Log stuff from the background js
+      console.log(request.value);
+    } else if (request.callFunction == "showAboutDialog") {
+      showAboutDialog();
+    }  
   }
 );
 
@@ -81,23 +83,7 @@ mouseClickListener = function (e) {
     // Stop propagation of links to avoid navigating to another page
     e.preventDefault();
     e.stopPropagation();
-  } else {
-    // Sidebar element clicked
-    if (srcElement.className == CSS.classes.elementDelete) {
-      removeElementFromTheDialog(srcElement);
-    } else if (srcElement.id == CSS.ids.submitButton) {
-      submitInfo();
-    } else if (srcElement.id == CSS.ids.addButton) {
-      showContainerDialog();
-    } else if (srcElement.id == CSS.ids.aboutLink) {
-      showAboutDialog();
-    } else if (srcElement.class = CSS.classes.link) {
-    } else {
-      // Stop propagation of links to avoid navigating to another page
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  }
+  } 
 }
 
 function initParagraphText() {
@@ -149,7 +135,7 @@ function toggleExtension() {
     // Remove UI from the page DOM
     var el = document.getElementById(CSS.ids.sidebar);
     el.parentNode.removeChild(el);
-    el = document.getElementById(CSS.ids.dialogs);http://localhost:3434/extractors
+    el = document.getElementById(CSS.ids.dialogs);
     el.parentNode.removeChild(el);
     document.body.style.margin = ORIGINAL_BODY_MARGIN;
     // Remove listeners
@@ -165,36 +151,11 @@ function toggleExtension() {
 }
 
 function createSidebar() {
-  var sidebar = document.createElement('div');
+  var sidebar = document.createElement('iframe');
   sidebar.id = CSS.ids.sidebar;
-  sidebar.className = CSS.classes.extension;
-  sidebar.innerHTML = '\
-  <img src="' + chrome.extension.getURL('img/logo_scrappy.png') 
-  + '" id="' + CSS.ids.scrappyLogo 
-  + '" class="' + CSS.classes.extension +  '" />\
-  <img src="' + chrome.extension.getURL('img/logo_gsi.png') 
-  + '" id="' + CSS.ids.gsiLogo 
-  + '" class="' + CSS.classes.extension +  '" />\
-  <div class="' + CSS.classes.clearBoth 
-  + ' ' + CSS.classes.extension +  '" />\
-  <div id="' + CSS.ids.sidebarContent 
-  + '" class="' + CSS.classes.extension +  '"></div>\
-  <button id="' + CSS.ids.addButton + '"  class="' 
-  + CSS.classes.extension +  '">New resource</button>\
-  <button id="' + CSS.ids.submitButton + '"  class="' 
-  + CSS.classes.extension +  '">Send to Scrappy</button>\
-  <p id="' + CSS.ids.sponsoredBy + '" class="' 
-  + CSS.classes.extension +  '">Sponsored by:</p>\
-  <img id="' + CSS.ids.sponsoredLogo + '" src="' 
-  + chrome.extension.getURL("img/globalmetanoia.jpg") + '" class="' 
-  + CSS.classes.extension +  '" />\
-  <a id="' + CSS.ids.aboutLink + '" href="#" class="' 
-  + CSS.classes.extension +  '" >About</a>\
-  </div>\
-  </div>';
+  sidebar.src = chrome.extension.getURL('html/sidebar.html');
   document.body.appendChild(sidebar);
   document.body.style.margin = '0 0 0 300px';
-  document.getElementById(CSS.ids.submitButton).style.visibility = 'hidden';
 }
 
 function createDialogs() {
@@ -220,6 +181,8 @@ function createDialogs() {
   <img id="' + CSS.ids.financiacion + '" src="' 
   + chrome.extension.getURL('img/financiacion150.jpg') +
   '" class="' + CSS.classes.extension +  '" />\
+  <img  src="' + chrome.extension.getURL('img/globalmetanoia.jpg') +
+  '" class="' + CSS.classes.extension +  '" />\
   Proyecto cofinanciado por el Ministerio de Industria, Energía y '
   + 'Turismo, dentro del Plan Nacional de Investigación Científica, '
   + 'Desarrollo e Innovación Tecnológica 2008-2011 (Referencia '
@@ -232,6 +195,7 @@ function createDialogs() {
   + CSS.classes.extension +  '"></div>'
   document.body.appendChild(dialogs);
 }
+
 
 
 /* ------------------------------ Functions ----------------------------------*/
@@ -291,10 +255,11 @@ function showElementsDialog() {
 }
 
 function showAboutDialog() {   
+  console.log("showAboutDialog");
     $( "#" + CSS.ids.dialogAbout).dialog({
       autoOpen: true,
-      height: 700,
-      width: 400,
+      height: 600,
+      width: 600,
       modal: true,
     });
 }

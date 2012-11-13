@@ -14,61 +14,68 @@ limitations under the License.
 
 @author Antonio Prada <toniprada@gmail.com>
 */
-
+/* line 18, ../sass/general.scss */
 .scrappyChromeExtension_crx_mouse_visited {
   background-color: #bcd5eb !important;
   outline: 1px solid #5166bb !important;
 }
 
-.hide {
-	visibility:hidden;
-	height:0px;
-};
-
+/* line 23, ../sass/general.scss */
 .scrappyChromeExtension_clearBoth {
-	clear:both;
+  clear: both;
 }
 
-#dialog-about img {
-	height: 100px;
-	margin: auto;
-	display: block;
-	margin-bottom: 20px;
+/* line 27, ../sass/general.scss */
+#dialogAbout img {
+  width: 150px;
+  margin: auto;
+  display: block;
+  margin-bottom: 20px;
 }
 
-#scrappyChromeExtension_dialogContainer button, 
+/* line 34, ../sass/general.scss */
+#dialogAbout #financiacion {
+  height: 170px;
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+/* line 41, ../sass/general.scss */
+#scrappyChromeExtension_dialogContainer button,
 #scrappyChromeExtension_dialogElements button {
-	-webkit-box-align: center;
-	text-align: center;
-	cursor: default;
-	color: buttontext;
-	padding: 2px 6px 3px;
-	border: 2px outset buttonface;
-	background-color: buttonface;
-	box-sizing: border-box;
-	margin:0px;
-	width:20%;
-	height: 30px;
+  -webkit-box-align: center;
+  text-align: center;
+  cursor: default;
+  color: buttontext;
+  padding: 2px 6px 3px;
+  border: 2px outset buttonface;
+  background-color: buttonface;
+  box-sizing: border-box;
+  margin: 0px;
+  width: 20%;
+  height: 30px;
 }
 
-#scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element select, 
+/* line 56, ../sass/general.scss */
+#scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element select,
 #scrappyChromeExtension_dialogElements .scrappyChromeExtension_element select {
-	width: 80%;
-	height: 30px;
-	margin:0px;
+  width: 80%;
+  height: 30px;
+  margin: 0px;
 }
 
+/* line 63, ../sass/general.scss */
 #scrappyChromeExtension_dialogContainer .scrappyChromeExtension_xpath,
 #scrappyChromeExtension_dialogElements .scrappyChromeExtension_xpath {
-	overflow: hidden;
-	font-style:italic;
+  overflow: hidden;
+  font-style: italic;
 }
 
+/* line 69, ../sass/general.scss */
 #scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element,
 #scrappyChromeExtension_dialogElements .scrappyChromeExtension_element {
-	margin:10px 5px 10px 5px;
-	padding:5px;
-	background:#E6E6E6;
-	font-size: 14px;
+  margin: 10px 5px 10px 5px;
+  padding: 5px;
+  background: #E6E6E6;
+  font-size: 14px;
 }
-

@@ -19,10 +19,24 @@ var tabid = null;
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   tabid = tab.id;
-  chrome.tabs.sendRequest(tab.id, {callFunction: "toggleExtension"});
+  chrome.tabs.sendMessage(tab.id, {callFunction: "toggleExtension"});
+  chrome.tabs.insertCSS(tab.id, { 
+      allFrames: true,
+      file: "../css/smoothness/jquery-ui-chrome-extension.css"
+    }
+  );
 });
 
-chrome.extension.onRequest.addListener(
+chrome.extension.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    if (request.task == "about") {
+      chrome.tabs.sendMessage(tabid, {callFunction: "showAboutDialog"});
+    }
+  }
+);
+
+
+/*chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
     clog(sender.tab ? "from a content script:" 
         + sender.tab.url: "from the extension");
@@ -30,7 +44,8 @@ chrome.extension.onRequest.addListener(
        postExtractor(request.url, request.data, sendResponse);
     }
   }
-);
+);*/
+
 
 /* ------------------ Initialization -------------------*/
 
@@ -74,8 +89,7 @@ function buildExtractor(url, data) {
     s += '      rdf:type: sc:UriSelector\n';
     s += '      rdf:value: "' + url + '"\n';
     s += '  sc:identifier:\n';
-    s += '    *:\n';
-    s += '      rdf:type: sc:BaseUriSelector\n';
+    s += '    *:\n';    s += '      rdf:type: sc:BaseUriSelector\n';
     s += '  sc:subfragment:\n';
     s += '    *:\n';
     s += '      sc:type: ' + data[i].container.type + '\n';
@@ -106,5 +120,5 @@ function buildExtractor(url, data) {
 
 function clog(val) {
   var message = JSON.stringify(val).replace(/\n/g, " ");
-  chrome.tabs.sendRequest(tabid, {callFunction: "consoleLog", value: message}); 
+  chrome.tabs.sendMessage(tabid, {callFunction: "consoleLog", value: message});
 }
