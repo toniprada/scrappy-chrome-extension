@@ -48,10 +48,8 @@ chrome.extension.onMessage.addListener(
     } else if (request.callFunction == "consoleLog") {
       // Log stuff from the background js
       console.log(request.value);
-    } else if (request.callFunction == "showAboutDialog") {
+    } else if (request.callFunction == Task.about) {
       showAboutDialog();
-    } else if (request.callFunction == "addNamespace") {
-      showAddNamespace();
     }  
   }
 );
@@ -81,7 +79,7 @@ mouseClickListener = function (e) {
   if (srcElement.className.indexOf(CSS.classes.extension) == -1
     && srcElement.className.indexOf("ui") == -1) {
     // The element clicked doesn't belong to the extension UI
-  addElementToTheDialog(srcElement);
+    addElementToTheDialog(srcElement);
     // Stop propagation of links to avoid navigating to another page
     e.preventDefault();
     e.stopPropagation();
@@ -188,40 +186,19 @@ function createDialogs() {
   Proyecto cofinanciado por el Ministerio de Industria, Energía y '
   + 'Turismo, dentro del Plan Nacional de Investigación Científica, '
   + 'Desarrollo e Innovación Tecnológica 2008-2011 (Referencia '
-    + 'proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo '
-+ ' de Desarrollo Regional (FEDER). Subprograma Avanza Competitividad '
-+ 'I+D+i.\
-</div>\
-<div id="' + CSS.ids.dialogInfo + '" class="' + CSS.classes.extension 
-+ '" title="Info" class="' 
-+ CSS.classes.extension +  '"></div>'
-document.body.appendChild(dialogs);
+  + 'proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo '
+  + ' de Desarrollo Regional (FEDER). Subprograma Avanza Competitividad '
+  + 'I+D+i.\
+  </div>\
+  <div id="' + CSS.ids.dialogInfo + '" class="' + CSS.classes.extension 
+  + '" title="Info" class="' 
+  + CSS.classes.extension +  '"></div>'
+  document.body.appendChild(dialogs);
 }
 
 
 
 /* ------------------------------ Functions ----------------------------------*/
-
-function showAboutDialog() {   
-  console.log("showAboutDialog");
-  $( "#" + CSS.ids.dialogAbout).dialog({
-    autoOpen: true,
-    height: 600,
-    width: 600,
-    modal: true,
-  });
-}
-
-function showAddNamespace() {   
-  console.log("showAddNamespace");
-  $( "#" + CSS.ids.dialogAbout).dialog({
-    autoOpen: true,
-    height: 600,
-    width: 600,
-    modal: true,
-  });
-}
-
 
 function showContainerDialog() {   
   $( "#" + CSS.ids.dialogContainer ).dialog({
@@ -277,6 +254,15 @@ function showElementsDialog() {
   addMoveListener();
 }
 
+function showAboutDialog() {   
+  console.log("showAboutDialog");
+    $( "#" + CSS.ids.dialogAbout).dialog({
+      autoOpen: true,
+      height: 600,
+      width: 600,
+      modal: true,
+    });
+}
 
 
 function addContainerToCurrentResource() {
@@ -411,24 +397,24 @@ function submitInfo() {
   a.innerText = "Click here to open it";
   document.getElementById(CSS.ids.dialogInfo).appendChild(a);
   chrome.extension.sendRequest(
-  { 
-    action: "post_extractor", 
-    url: window.location.href, 
-    data: resources
-  }, 
-  function(response) {
-    console.log(response.message);
-    if (response.message == "scrapper_received") {
-      $( "#dialog:ui-dialog" ).dialog( "destroy" );
-      $( "#" + CSS.ids.dialogInfo).dialog({
-        modal: true,
-        buttons: {
-          Ok: function() {
-            $( this ).dialog( "close" );
+    { 
+      action: "post_extractor", 
+      url: window.location.href, 
+      data: resources
+    }, 
+    function(response) {
+      console.log(response.message);
+      if (response.message == "scrapper_received") {
+        $( "#dialog:ui-dialog" ).dialog( "destroy" );
+        $( "#" + CSS.ids.dialogInfo).dialog({
+          modal: true,
+          buttons: {
+            Ok: function() {
+              $( this ).dialog( "close" );
+            }
           }
-        }
-      });
-    }
+        });
+      }
   }); 
 }
 
@@ -436,14 +422,14 @@ function submitInfo() {
 function addElementsToCurrentResource(elements) {
   currentResource.elements = new Array();
   for(i=0; i<elements.length; i++) {
-    currentResource.elements[i] = {};
+  currentResource.elements[i] = {};
     var nodes = elements[i].childNodes;
     for(j=0; j<nodes.length; j++) {
       var info = nodes[j];
       if (info.className == CSS.classes.elementText) {
-        currentResource.elements[i].text = info.innerText;
+      currentResource.elements[i].text = info.innerText;
       } else if (info.className == CSS.classes.elementXPath) {
-        currentResource.elements[i].xpath = '/html/' + info.innerText;
+      currentResource.elements[i].xpath = '/html/' + info.innerText;
       } else if (info.className == CSS.classes.elementType) {
         var index = info.selectedIndex;
         currentResource.elements[i].type = info.options[index].text;
@@ -471,27 +457,27 @@ function addElementsToCurrentResource(elements) {
             formattedData.body = {};
             formattedData.body.xpath = info.xpath;
         }
-      }*/
-    }
+    }*/
+}
 
-    function addMoveListener() {
-      document.addEventListener('mousemove', mouseMoveListener, false);
-    }
+function addMoveListener() {
+    document.addEventListener('mousemove', mouseMoveListener, false);
+}
 
-    function removeMoveListener() {
-      document.removeEventListener('mousemove', mouseMoveListener, false);
-      if (previousDOM != null) {
-        previousDOM.classList.remove(CSS.classes.mouse_visited);
-      }
-      previousDOM == null;
+function removeMoveListener() {
+    document.removeEventListener('mousemove', mouseMoveListener, false);
+    if (previousDOM != null) {
+      previousDOM.classList.remove(CSS.classes.mouse_visited);
     }
+    previousDOM == null;
+}
 
-    function deleteChildsFromElement(parentId) {
-      var cell = document.getElementById(parentId);
-      if ( cell.hasChildNodes() ) {
-        while ( cell.childNodes.length >= 1 ) {
-          cell.removeChild( cell.firstChild );       
-        } 
-      }
+function deleteChildsFromElement(parentId) {
+  var cell = document.getElementById(parentId);
+    if ( cell.hasChildNodes() ) {
+      while ( cell.childNodes.length >= 1 ) {
+        cell.removeChild( cell.firstChild );       
+      } 
     }
+}
 

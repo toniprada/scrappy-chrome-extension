@@ -29,8 +29,7 @@ CSS = {
 	},
 	ids: {
 		aboutLink: 		'aboutLink',
-		addResource: 	'addResource',
-		addNamespace:   'addNamespace',
+		addButton: 		'addButton',
 		dialogAbout: 	'dialogAbout',
 		dialogContainer:'dialogContainer',
 		dialogContent: 	'dialogContent',

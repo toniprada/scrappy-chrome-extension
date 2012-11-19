@@ -31,7 +31,13 @@ chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.task == "about") {
       chrome.tabs.sendMessage(tabid, {callFunction: "showAboutDialog"});
-    }
+    } else if (request.task == "addNamespace") {
+      chrome.tabs.sendMessage(tabid, {callFunction: "addNamespace"});
+    }  else if (request.task == "addResource") {
+      chrome.tabs.sendMessage(tabid, {callFunction: "addResource"});
+    }  else if (request.task == "submit") {
+      chrome.tabs.sendMessage(tabid, {callFunction: "submit"});
+    } 
   }
 );
 
