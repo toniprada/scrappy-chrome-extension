@@ -15,32 +15,31 @@ limitations under the License.
 @author Antonio Prada <toniprada@gmail.com>
 */
 /* line 18, ../sass/general.scss */
+.clearBoth {
+  clear: both;
+}
+
+/* line 22, ../sass/general.scss */
+.hide {
+  visibility: hidden;
+  height: 0px;
+}
+
+/* line 28, ../sass/general.scss */
+#dialogAbout img {
+  width: 200px;
+  margin: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* line 35, ../sass/general.scss */
 .scrappyChromeExtension_crx_mouse_visited {
   background-color: #bcd5eb !important;
   outline: 1px solid #5166bb !important;
 }
 
-/* line 23, ../sass/general.scss */
-.scrappyChromeExtension_clearBoth {
-  clear: both;
-}
-
-/* line 27, ../sass/general.scss */
-#dialogAbout img {
-  width: 150px;
-  margin: auto;
-  display: block;
-  margin-bottom: 20px;
-}
-
-/* line 34, ../sass/general.scss */
-#dialogAbout #financiacion {
-  height: 170px;
-  margin-top: 40px;
-  margin-bottom: 50px;
-}
-
-/* line 41, ../sass/general.scss */
+/* line 43, ../sass/general.scss */
 #scrappyChromeExtension_dialogContainer button,
 #scrappyChromeExtension_dialogElements button {
   -webkit-box-align: center;
@@ -56,7 +55,7 @@ limitations under the License.
   height: 30px;
 }
 
-/* line 56, ../sass/general.scss */
+/* line 58, ../sass/general.scss */
 #scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element select,
 #scrappyChromeExtension_dialogElements .scrappyChromeExtension_element select {
   width: 80%;
@@ -64,14 +63,14 @@ limitations under the License.
   margin: 0px;
 }
 
-/* line 63, ../sass/general.scss */
+/* line 65, ../sass/general.scss */
 #scrappyChromeExtension_dialogContainer .scrappyChromeExtension_xpath,
 #scrappyChromeExtension_dialogElements .scrappyChromeExtension_xpath {
   overflow: hidden;
   font-style: italic;
 }
 
-/* line 69, ../sass/general.scss */
+/* line 71, ../sass/general.scss */
 #scrappyChromeExtension_dialogContainer .scrappyChromeExtension_element,
 #scrappyChromeExtension_dialogElements .scrappyChromeExtension_element {
   margin: 10px 5px 10px 5px;

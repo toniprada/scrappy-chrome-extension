@@ -13,12 +13,15 @@ specific language governing permissions and limitations under the License.
 @author Antonio Prada <toniprada@gmail.com>
 
 */
-var tabid = null;
+
+var tabId = null;
+var namespaces = new Array();
+
 
 /* ----------------- Request Handling ------------------*/
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  tabid = tab.id;
+  tabId = tab.id;
   chrome.tabs.sendMessage(tab.id, {callFunction: "toggleExtension"});
   chrome.tabs.insertCSS(tab.id, { 
       allFrames: true,
@@ -30,8 +33,13 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.task == "about") {
-      chrome.tabs.sendMessage(tabid, {callFunction: "showAboutDialog"});
-    }
+      chrome.tabs.sendMessage(tabId, {callFunction: "showAboutDialog"});
+    } else if (request.task == "addNamespace") {
+      chrome.tabs.sendMessage(tabId, {callFunction: "addNamespace"}); 
+    } else if (request.task == "pushNamespace") {
+      namespaces.push(request.data);
+      chrome.tabs.sendMessage(tabId, {callFunction: "updateNamespacesSidebar", data: namespaces}); 
+    } 
   }
 );
 
@@ -120,5 +128,5 @@ function buildExtractor(url, data) {
 
 function clog(val) {
   var message = JSON.stringify(val).replace(/\n/g, " ");
-  chrome.tabs.sendMessage(tabid, {callFunction: "consoleLog", value: message});
+  chrome.tabs.sendMessage(tabId, {callFunction: "consoleLog", value: message});
 }

@@ -19,6 +19,12 @@ limitations under the License.
 	clear:both;
 }
 
+.hide {
+	visibility:hidden;
+	height:0px;
+};
+
+
 #dialogAbout img {
 	width: 200px;
 	margin: auto;
@@ -68,4 +74,6 @@ limitations under the License.
 	background:#E6E6E6;
 	font-size: 14px;
 }
+
+
 

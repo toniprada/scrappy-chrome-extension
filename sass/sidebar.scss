@@ -29,53 +29,48 @@ limitations under the License.
 	background:#F2F2F2;
 }
 
-#sponsored {	
+#scrappySidebar #sponsored {	
 	margin: 8px 0px 48px 0px;
 	text-align: center;
 	width: 100%;
 	font-size:0.8em;
 }
 
-#scrappyLogo {
+#scrappySidebar #scrappyLogo {
 	float: left;
 	width: 180px;
 	margin: 20px 0px 0px 20px;
 }
 
-#gsiLogo {
+#scrappySidebar #gsiLogo {
 	float: right;
 	margin: 23px 15px 0px 0px;
 	width: 50px;
 }
 
 
-#extensionContent {
+#scrappySidebar #extensionContent {
 	margin-top: 90px;
 	font-size: 14px;
 }
 
-#extensionContent .container {
+#scrappySidebar #extensionContent .container {
 	margin:10px 5px 10px 5px;
 	padding:5px;
 	background:#E6E6E6;
 }
 
-#extensionContent .element {
+#scrappySidebar #extensionContent .element {
 	margin:5px;
 	padding: 5px;
 	background:#CCC;
 }
 
-.clearBoth {
+#scrappySidebar .clearBoth {
 	clear:both;
 }
 
-.hide {
-	visibility:hidden;
-	height:0px;
-};
-
-.button { 
+#scrappySidebar .button { 
 	@include sassy-button-structure(10px, 20px); 
 	width: 200px;
 	padding: 5px;
@@ -83,8 +78,19 @@ limitations under the License.
 	display: block;
 }
 
-.red { @include sassy-button-gradient("matte", #e86a43); }
+#scrappySidebar .red { @include sassy-button-gradient("matte", #e86a43); }
 
-.blue { @include sassy-button-gradient("matte", #4d8ccd); }
+#scrappySidebar .blue { @include sassy-button-gradient("matte", #4d8ccd); }
 
-.green { @include sassy-button-gradient("matte", #8cbe5f); }
+#scrappySidebar .green { @include sassy-button-gradient("matte", #8cbe5f); }
+
+#scrappySidebar #sidebarNamespaces p {
+	background-color: #BBB;
+	margin: 5px;
+	padding: 4px 10px 4px 10px;
+}
+
+#scrappySidebar #sidebarNamespaces img {
+	float:right;
+}
+

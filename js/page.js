@@ -38,6 +38,8 @@ var elementId = 1;
 var currentResource;
 var resources = new Array();
 
+
+
 /* ------------------------- Request Handling --------------------------------*/
 
 chrome.extension.onMessage.addListener(
@@ -50,7 +52,9 @@ chrome.extension.onMessage.addListener(
       console.log(request.value);
     } else if (request.callFunction == "showAboutDialog") {
       showAboutDialog();
-    }  
+    } else if (request.callFunction == "addNamespace") {
+      showNamespaceDialog();
+    }   
   }
 );
 
@@ -163,9 +167,14 @@ function createDialogs() {
   dialogs.className = "hide";
   dialogs.id = CSS.ids.dialogs;
   dialogs.innerHTML =  '\
+  <div id="' + CSS.ids.dialogNamespace + '" class="' + CSS.classes.extension
+  + '" title="Input a namespace to use (RDF is already included)" >\
+  <form> Namespace URI: <input id="' 
+  + CSS.ids.namespaceUri + '" type="text" /></input>  Prefix assigned: <input id="' 
+  + CSS.ids.namespacePrefix + '" type="text" ></input> </form> </div>\
   <div id="' + CSS.ids.dialogElements + '" class="' + CSS.classes.extension 
   + '" title="Select the data elements contained on the previously selected ' 
-  + 'parent" class="' + CSS.classes.extension +  '">\
+  + 'parent" >\
   </div>\
   <div id="' + CSS.ids.dialogContainer + '" class="' + CSS.classes.extension 
   + '" title="Select the data parent" class="' 
@@ -199,6 +208,39 @@ function createDialogs() {
 
 
 /* ------------------------------ Functions ----------------------------------*/
+
+
+function showNamespaceDialog() {   
+  $( "#" + CSS.ids.dialogNamespace).dialog({
+    autoOpen: false,
+    height: 230,
+    width: 500,
+    modal: false,
+    buttons: {
+      Cancel: function() {
+        $(this).dialog( "close" );
+      },
+      "OK": function() {
+        // get data
+        var namespace = {
+          uri: document.getElementById(CSS.ids.namespaceUri).value, 
+          prefix: document.getElementById(CSS.ids.namespacePrefix).value
+        }
+        // store data
+        chrome.extension.sendMessage({task: "pushNamespace", data: namespace});
+        // clean form
+        document.getElementById(CSS.ids.namespaceUri).value = "";
+        document.getElementById(CSS.ids.namespacePrefix).value = "";
+        $(this).dialog( "close" );
+      }
+    },
+    close: function() {
+      deleteChildsFromElement(CSS.ids.dialogContainer);
+    }
+  });
+  $( "#" +  CSS.ids.dialogNamespace ).dialog( "open" );
+}
+
 
 function showContainerDialog() {   
   $( "#" + CSS.ids.dialogContainer ).dialog({
@@ -480,4 +522,5 @@ function deleteChildsFromElement(parentId) {
       } 
     }
 }
+
 

@@ -32,6 +32,7 @@ CSS = {
 		addResource: 	'addResource',
 		addNamespace:   'addNamespace',
 		dialogAbout: 	'dialogAbout',
+		dialogNamespace:'dialogNamespace',
 		dialogContainer:'dialogContainer',
 		dialogContent: 	'dialogContent',
 		dialogElements: 'dialogElements',
@@ -45,7 +46,10 @@ CSS = {
 		sidebarContent: 'sidebarContent',
 		sponsoredBy: 	'sponsoredBy',
 		sponsoredLogo: 	'sponsoredLogo',
-		submitButton: 	'submitButton'
+		submitButton: 	'submitButton',
+		namespaceUri: 	'namespaceUri',
+		namespacePrefix:'namespacePrefix',
+		sidebarNamespaces:'sidebarNamespaces'
 	}
 };
 
