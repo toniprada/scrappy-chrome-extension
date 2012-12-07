@@ -29,7 +29,8 @@ CSS = {
 	},
 	ids: {
 		aboutLink: 		'aboutLink',
-		addButton: 		'addButton',
+		addResource: 	'addResource',
+		addNamespace:   'addNamespace',
 		dialogAbout: 	'dialogAbout',
 		dialogNamespace:'dialogNamespace',
 		dialogContainer:'dialogContainer',
@@ -48,7 +49,9 @@ CSS = {
 		submitButton: 	'submitButton',
 		namespaceUri: 	'namespaceUri',
 		namespacePrefix:'namespacePrefix',
-		sidebarNamespaces:'sidebarNamespaces'
+		sidebarNamespaces:'sidebarNamespaces',
+		namespaceOk: 'namespaceOk',
+		namespaceCancel: 'namespaceCancel'
 	}
 };
 

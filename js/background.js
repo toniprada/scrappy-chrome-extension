@@ -32,17 +32,20 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
+    console.log(request);
     if (request.task == "about") {
       chrome.tabs.sendMessage(tabId, {callFunction: "showAboutDialog"});
-    } else if (request.task == "addNamespace") {
-      chrome.tabs.sendMessage(tabId, {callFunction: "addNamespace"}); 
+    } else if (request.task == "showAddNamespace") {
+      chrome.tabs.sendMessage(tabId, {callFunction: "addNamespaceFunction"}); 
     } else if (request.task == "pushNamespace") {
       namespaces.push(request.data);
+      chrome.tabs.sendMessage(tabId, {callFunction: "updateNamespacesSidebar", data: namespaces}); 
+    } else if (request.task == "deleteNamespace") {
+      removeNamespaceWithId(request.data);
       chrome.tabs.sendMessage(tabId, {callFunction: "updateNamespacesSidebar", data: namespaces}); 
     } 
   }
 );
-
 
 /*chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
@@ -60,6 +63,7 @@ chrome.extension.onMessage.addListener(
 
 
 /* ------------------- Functions --------------------*/
+
 
 
 function postExtractor(url, data, sendResponse) {

@@ -44,6 +44,7 @@ var resources = new Array();
 
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
+    console.log(request);
     if (request.callFunction == "toggleExtension") {
       // Enable-disable the extension
       toggleExtension();
@@ -52,7 +53,7 @@ chrome.extension.onMessage.addListener(
       console.log(request.value);
     } else if (request.callFunction == "showAboutDialog") {
       showAboutDialog();
-    } else if (request.callFunction == "addNamespace") {
+    } else if (request.callFunction == "addNamespaceFunction") {
       showNamespaceDialog();
     }   
   }
@@ -159,7 +160,7 @@ function createSidebar() {
   sidebar.id = CSS.ids.sidebar;
   sidebar.src = chrome.extension.getURL('html/sidebar.html');
   document.body.appendChild(sidebar);
-  document.body.style.margin = '0 0 0 300px';
+  document.body.style.margin = '0 0 0 400px';
 }
 
 function createDialogs() {
@@ -239,9 +240,9 @@ function showNamespaceDialog() {
     }
   });
   $( "#" +  CSS.ids.dialogNamespace ).dialog( "open" );
+}
 
 function showAboutDialog() {   
-  console.log("showAboutDialog");
   $( "#" + CSS.ids.dialogAbout).dialog({
     autoOpen: true,
     height: 600,

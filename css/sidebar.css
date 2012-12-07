@@ -19,7 +19,7 @@ limitations under the License.
   position: fixed;
   top: 0px;
   left: 0px;
-  width: 300px;
+  width: 400px;
   height: 100%;
   box-shadow: inset 0 0 1em black;
   z-index: 999999;
@@ -75,7 +75,7 @@ limitations under the License.
 }
 
 /* line 73, ../sass/sidebar.scss */
-#scrappySidebar .button {
+#scrappySidebar .buttonBig {
   font-size: 20px;
   padding: 0.5em 1.5em;
   display: inline-block;
@@ -92,6 +92,19 @@ limitations under the License.
 }
 
 /* line 81, ../sass/sidebar.scss */
+#scrappySidebar .buttonSmall {
+  font-size: 10px;
+  padding: 0.5em 1.5em;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/* line 85, ../sass/sidebar.scss */
 #scrappySidebar .red {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FFE86A43', endColorstr='#FFB03A15');
@@ -136,7 +149,7 @@ limitations under the License.
   box-shadow: none;
 }
 
-/* line 83, ../sass/sidebar.scss */
+/* line 87, ../sass/sidebar.scss */
 #scrappySidebar .blue {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF4D8CCD', endColorstr='#FF27598D');
@@ -181,7 +194,7 @@ limitations under the License.
   box-shadow: none;
 }
 
-/* line 85, ../sass/sidebar.scss */
+/* line 89, ../sass/sidebar.scss */
 #scrappySidebar .green {
   *zoom: 1;
   filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF8CBE5F', endColorstr='#FF598235');
@@ -226,14 +239,20 @@ limitations under the License.
   box-shadow: none;
 }
 
-/* line 87, ../sass/sidebar.scss */
-#scrappySidebar #sidebarNamespaces p {
+/* line 91, ../sass/sidebar.scss */
+#scrappySidebar #namespacesContainer div {
   background-color: #BBB;
   margin: 5px;
   padding: 4px 10px 4px 10px;
 }
 
-/* line 93, ../sass/sidebar.scss */
-#scrappySidebar #sidebarNamespaces img {
+/* line 97, ../sass/sidebar.scss */
+#scrappySidebar #namespacesContainer input {
   float: right;
+  width: 80%;
+}
+
+/* line 102, ../sass/sidebar.scss */
+#scrappySidebar #namespacesContainer button {
+  width: 49%;
 }

@@ -21,7 +21,7 @@ limitations under the License.
 	position:fixed;
 	top:0px;
 	left:0px;
-	width:300px;
+	width:400px;
 	height:100%;
 	box-shadow:inset 0 0 1em black;
 	z-index:999999;
@@ -70,12 +70,16 @@ limitations under the License.
 	clear:both;
 }
 
-#scrappySidebar .button { 
+#scrappySidebar .buttonBig{ 
 	@include sassy-button-structure(10px, 20px); 
 	width: 200px;
 	padding: 5px;
 	margin: 20px auto;
 	display: block;
+}
+
+#scrappySidebar .buttonSmall { 
+	@include sassy-button-structure(5px, 10px); 
 }
 
 #scrappySidebar .red { @include sassy-button-gradient("matte", #e86a43); }
@@ -84,13 +88,18 @@ limitations under the License.
 
 #scrappySidebar .green { @include sassy-button-gradient("matte", #8cbe5f); }
 
-#scrappySidebar #sidebarNamespaces p {
+#scrappySidebar #namespacesContainer div{
 	background-color: #BBB;
 	margin: 5px;
 	padding: 4px 10px 4px 10px;
 }
 
-#scrappySidebar #sidebarNamespaces img {
+#scrappySidebar #namespacesContainer input {
 	float:right;
+	width:80%;
+}
+
+#scrappySidebar #namespacesContainer button {
+	width:49%;
 }
 

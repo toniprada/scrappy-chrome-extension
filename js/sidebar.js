@@ -1,45 +1,65 @@
-window.onload=function(){
-	document.addEventListener('click', mouseClickListener, false);
-};
-
-mouseClickListener = function (e) {
-	var srcElement = e.srcElement;
-	if (srcElement.className == CSS.classes.elementDelete) {
-		//removeElementFromTheDialog(srcElement);
-	} else if (srcElement.id == CSS.ids.aboutLink) {
-		chrome.extension.sendMessage({task: "about"});
-	} else if (srcElement.id == CSS.ids.addNamespace) {
-		chrome.extension.sendMessage({task: "addNamespace"});
-	} else if (srcElement.id == CSS.ids.addResource) {
-		chrome.extension.sendMessage({task: "addResource"});
-	} else if (srcElement.id == CSS.ids.submitButton) {
-		chrome.extension.sendMessage({task: "submit"});;
-	}
-}
+var namespaces = new Array();
+var namespaceCount = 1;
 
 chrome.extension.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.callFunction == "updateNamespacesSidebar") {
-      updateNamespaces(request.data);
-    } 
-  }
+    function(request, sender, sendResponse) {
+        if (request.callFunction == "updateNamespacesSidebar") {
+            updateNamespaces(request.data);
+        } 
+    }
 );
 
+$(document).ready(function(){
+    $("#addNamespaceButton").click(function() {
+        if(!$(this).hasClass("disabled")) {
+            addNamespace();
+        }
+    });
+    $("#aboutLink").click(function() {
+        chrome.extension.sendMessage({task: "about"});
+    });
+});
 
-function updateNamespaces(namespaces) {
-  var div = document.getElementById(CSS.ids.sidebarNamespaces);
-  if (div.hasChildNodes() ) {
-    while ( div.childNodes.length >= 1 ) {
-        div.removeChild(div.firstChild );       
-    } 
-  }
-  for (var j = 0; j < namespaces.length; j++) {
-    var p = document.createElement("p");
-    p.innerText = namespaces[j].prefix + " = " + namespaces[j].uri;
-    var img = document.createElement("img");
-    img.src = "../img/delete.png";
-    p.appendChild(img);
-    div.appendChild(p);
-  }
+
+
+function addNamespace() {
+    $("#addNamespaceButton").addClass("disabled");
+    $("#namespacesContainer").append(
+        '<div id="addNamespaceForm">\
+        <p>Prefix: <input id="namespacePrefix"  type="text"></input></p>\
+        <p>URI: <input id="namespaceUri"  type="text"></input></p>\
+        <button class="buttonSmall red" id="namespaceCancel" >Cancel</button>\
+        <button class="buttonSmall green" id="namespaceOk" >Add</button>\
+        </div>'
+        );
+    $("#namespaceCancel").click(function() {
+        $("#addNamespaceForm").remove();
+        $("#addNamespaceButton").removeClass("disabled");
+    });
+    $("#namespaceOk").click(function() {
+        var p = $("#namespacePrefix").val();
+        var u = $("#namespaceUri").val();
+        $("#namespacesContainer").append(
+            '<div class="namespace" count="' + namespaceCount + '">\
+            <p>' +  p+ ':' + u + '</p>\
+            <button class="buttonSmall red" id="removeNamespace' + namespaceCount + '">Remove</button>\
+            </div>'
+        );
+        $('#removeNamespace' + namespaceCount).click(function() {
+            var count = $(this).parent().attr("count");
+            for(var i=0;i<namespaces.length;i++){
+                if(namespaces[i].id == count) {
+                    namespaces.splice(i,1);
+                } 
+            };
+            $(this).parent().remove();
+            console.log(namespaces);
+        }); 
+        $("#addNamespaceForm").remove();
+        $("#addNamespaceButton").removeClass("disabled");
+        namespaces.push({id: namespaceCount, prefix: p, uri: u});
+        console.log(namespaces);
+        namespaceCount++;
+    });
 }
 
