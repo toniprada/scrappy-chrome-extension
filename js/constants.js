@@ -51,7 +51,10 @@ CSS = {
 		namespacePrefix:'namespacePrefix',
 		sidebarNamespaces:'sidebarNamespaces',
 		namespaceOk: 'namespaceOk',
-		namespaceCancel: 'namespaceCancel'
+		namespaceCancel: 'namespaceCancel',
+		dialogAddResource: 'dialogAddResource',
+		dialogAddSubfragment: 'dialogAddSubfragment'
+
 	}
 };
 

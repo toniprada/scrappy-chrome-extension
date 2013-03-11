@@ -15,14 +15,13 @@ specific language governing permissions and limitations under the License.
 */
 
 var tabId = null;
-var namespaces = new Array();
 
 
 /* ----------------- Request Handling ------------------*/
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   tabId = tab.id;
-  chrome.tabs.sendMessage(tab.id, {callFunction: "toggleExtension"});
+  chrome.tabs.sendMessage(tab.id, {callFunction: "toggleExtension", tabId: tabId});
   chrome.tabs.insertCSS(tab.id, { 
       allFrames: true,
       file: "../css/smoothness/jquery-ui-chrome-extension.css"
@@ -30,22 +29,23 @@ chrome.browserAction.onClicked.addListener(function(tab) {
   );
 });
 
+
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log(request);
+    console.log("listener on background.js");
     if (request.task == "about") {
       chrome.tabs.sendMessage(tabId, {callFunction: "showAboutDialog"});
-    } else if (request.task == "showAddNamespace") {
-      chrome.tabs.sendMessage(tabId, {callFunction: "addNamespaceFunction"}); 
-    } else if (request.task == "pushNamespace") {
-      namespaces.push(request.data);
-      chrome.tabs.sendMessage(tabId, {callFunction: "updateNamespacesSidebar", data: namespaces}); 
-    } else if (request.task == "deleteNamespace") {
-      removeNamespaceWithId(request.data);
-      chrome.tabs.sendMessage(tabId, {callFunction: "updateNamespacesSidebar", data: namespaces}); 
-    } 
+    }  else if (request.task == "addResource") {
+      chrome.tabs.sendMessage(tabId, {callFunction: "showAddResourceDialog", ns: request.ns});
+    } else if (request.task == "addFragment") {
+      chrome.tabs.sendMessage(tabId, {callFunction: "addFragmentToSidebar", fragment: request.fragment});
+    } else if (request.task == "addSubfragment") {
+      chrome.tabs.sendMessage(tabId, {callFunction: "addSubfragmentToPage", fragmentId: request.fragmentId, ns: request.ns});
+    }
   }
 );
+
+
 
 /*chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {

@@ -16,18 +16,7 @@ specific language governing permissions and limitations under the License.
 
 // To disable the sidebar:
 const ORIGINAL_BODY_MARGIN = document.body.style.margin;
-// Some UI elements that we'll use a lot:
-const PARAGRAPH_TEXT = initParagraphText();
-const PARAGRAPH_XPATH = initParagraphXPath();
-const SELECT_TYPE = initSelectType();
-const SELECT_RELATION = initSelectRelation();
-const BUTTON_DELETE = initButtonDelete();
-// dialogs IDs to reuse some dialog code:
-const DIALOG_CONTAINER = 1;
-const DIALOG_ELEMENTS = 2;
 
-// What dialog is opened at this time:
-var dialogId = DIALOG_CONTAINER;
 // If the extension is enabled or not:
 var extensionEnabled = false;
 // We want to track it, so we can remove the previous styling:
@@ -35,8 +24,9 @@ var previousDOM = null;
 // Identifier for elements, so we can delete them:
 var elementId = 1;
 // Data to pass to the background code:
-var currentResource;
+var currentResource = null;
 var resources = new Array();
+var tabId = null;
 
 
 
@@ -47,14 +37,17 @@ chrome.extension.onMessage.addListener(
     console.log(request);
     if (request.callFunction == "toggleExtension") {
       // Enable-disable the extension
+      tabId = request.tabId;
       toggleExtension();
     } else if (request.callFunction == "consoleLog") {
       // Log stuff from the background js
       console.log(request.value);
     } else if (request.callFunction == "showAboutDialog") {
       showAboutDialog();
-    } else if (request.callFunction == "addNamespaceFunction") {
-      showNamespaceDialog();
+    } else if (request.callFunction == "showAddResourceDialog") {
+      showAddFragmentDialog(request.ns);
+    }   else if (request.callFunction == "addSubfragmentToPage") {
+      showAddSubFragmentDialog(request.ns, request.fragmentId);
     }   
   }
 );
@@ -84,18 +77,13 @@ mouseClickListener = function (e) {
   if (srcElement.className.indexOf(CSS.classes.extension) == -1
     && srcElement.className.indexOf("ui") == -1) {
     // The element clicked doesn't belong to the extension UI
-  addElementToTheDialog(srcElement);
+    addResourceToTheDialog(srcElement);
     // Stop propagation of links to avoid navigating to another page
     e.preventDefault();
     e.stopPropagation();
   } 
 }
 
-function initParagraphText() {
-  var p = document.createElement("p"); 
-  p.className = CSS.classes.elementText; 
-  return p;
-}
 
 function initParagraphXPath() {
   var p = document.createElement("p"); 
@@ -160,7 +148,7 @@ function createSidebar() {
   sidebar.id = CSS.ids.sidebar;
   sidebar.src = chrome.extension.getURL('html/sidebar.html');
   document.body.appendChild(sidebar);
-  document.body.style.margin = '0 0 0 400px';
+  document.body.style.margin = '0 0 0 300px';
 }
 
 function createDialogs() {
@@ -168,18 +156,9 @@ function createDialogs() {
   dialogs.className = "hide";
   dialogs.id = CSS.ids.dialogs;
   dialogs.innerHTML =  '\
-  <div id="' + CSS.ids.dialogNamespace + '" class="' + CSS.classes.extension
-  + '" title="Input a namespace to use (RDF is already included)" >\
-  <form> Namespace URI: <input id="' 
-  + CSS.ids.namespaceUri + '" type="text" /></input>  Prefix assigned: <input id="' 
-  + CSS.ids.namespacePrefix + '" type="text" ></input> </form> </div>\
   <div id="' + CSS.ids.dialogElements + '" class="' + CSS.classes.extension 
   + '" title="Select the data elements contained on the previously selected ' 
   + 'parent" >\
-  </div>\
-  <div id="' + CSS.ids.dialogContainer + '" class="' + CSS.classes.extension 
-  + '" title="Select the data parent" class="' 
-  + CSS.classes.extension +  '">\
   </div>\
   <div id="' + CSS.ids.dialogAbout + '" class="' + CSS.classes.extension 
   + '" title="About" class="' + CSS.classes.extension +  '">\
@@ -196,14 +175,20 @@ function createDialogs() {
   Proyecto cofinanciado por el Ministerio de Industria, Energía y '
   + 'Turismo, dentro del Plan Nacional de Investigación Científica, '
   + 'Desarrollo e Innovación Tecnológica 2008-2011 (Referencia '
-    + 'proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo '
-+ ' de Desarrollo Regional (FEDER). Subprograma Avanza Competitividad '
-+ 'I+D+i.\
-</div>\
-<div id="' + CSS.ids.dialogInfo + '" class="' + CSS.classes.extension 
-+ '" title="Info" class="' 
-+ CSS.classes.extension +  '"></div>'
-document.body.appendChild(dialogs);
+  + 'proyecto: TSI-020302-2011-20) y cofinanciado por el Fondo Europeo '
+  + ' de Desarrollo Regional (FEDER). Subprograma Avanza Competitividad '
+  + 'I+D+i.\
+  </div>\
+  <div id="' + CSS.ids.dialogInfo + '" class="' + CSS.classes.extension 
+  + '" title="Info" class="' 
+  + CSS.classes.extension +  '"></div>\
+  <div id="' + CSS.ids.dialogAddResource + '" class="' + CSS.classes.extension 
+  + '" title="Add fragment" class="' 
+  + CSS.classes.extension +  '"></div>'
+  +  '<div id="' + CSS.ids.dialogAddSubfragment + '" class="' + CSS.classes.extension 
+  + '" title="Add subfragment" class="' 
+  + CSS.classes.extension +  '"></div>'
+  document.body.appendChild(dialogs);
 }
 
 
@@ -211,36 +196,127 @@ document.body.appendChild(dialogs);
 /* ------------------------------ Functions ----------------------------------*/
 
 
-function showNamespaceDialog() {   
-  $( "#" + CSS.ids.dialogNamespace).dialog({
+function showAddFragmentDialog(namespaces) {   
+  var div = document.createElement('div');
+  div.innerHTML = '<div class="' + CSS.classes.extension + '">\
+  <p class="' + CSS.classes.extension + '">Selector type:</p>\
+  <p class="' + CSS.classes.extension + '"> <select id="fragSelSelType" class="' + CSS.classes.extension + '" >' 
+    + fillSelectWithNamespaces(namespaces) + '</select> <input  class="' 
+    + CSS.classes.extension + '" type="text" value="" id="fragInSelType" ></p>\
+  <p class="' + CSS.classes.extension + '" >Selector value:</p>\
+  <p class="' + CSS.classes.extension + '"> <input  class="' 
+    + CSS.classes.extension + '" type="text" value="" id="fragInSelVal" ></p>\
+  </div>';
+  $( "#" + CSS.ids.dialogAddResource).append(div);
+  $( "#" + CSS.ids.dialogAddResource).dialog({
     autoOpen: false,
-    height: 230,
-    width: 500,
+    height: 400,
+    width: 400,
     modal: false,
     buttons: {
       Cancel: function() {
         $(this).dialog( "close" );
       },
       "OK": function() {
-        // get data
-        var namespace = {
-          uri: document.getElementById(CSS.ids.namespaceUri).value, 
-          prefix: document.getElementById(CSS.ids.namespacePrefix).value
+        var e = document.getElementById("fragSelSelType");
+        var strFragSelSelType = e.options[e.selectedIndex].text;
+        currentResource = {
+          type:"fragment",
+          selector: {
+            type: strFragSelSelType + ":" + document.getElementById('fragInSelType').value,
+            value: document.getElementById('fragInSelVal').value
+          }
         }
-        // store data
-        chrome.extension.sendMessage({task: "pushNamespace", data: namespace});
-        // clean form
-        document.getElementById(CSS.ids.namespaceUri).value = "";
-        document.getElementById(CSS.ids.namespacePrefix).value = "";
+        console.log(currentResource);
+        chrome.extension.sendMessage({task: "addFragment", fragment: currentResource});
         $(this).dialog( "close" );
       }
     },
     close: function() {
-      deleteChildsFromElement(CSS.ids.dialogContainer);
+      currentResource = null;
+      deleteChildsFromElement(CSS.ids.dialogAddResource);
     }
   });
-  $( "#" +  CSS.ids.dialogNamespace ).dialog( "open" );
+  $( "#" +  CSS.ids.dialogAddResource ).dialog( "open" );
 }
+
+function showAddSubFragmentDialog(namespaces, fragmentid) {   
+  var div = document.createElement('div');
+  div.innerHTML = '<div class="' + CSS.classes.extension + '">\
+  <p class="' + CSS.classes.extension + '">Selector type:</p>\
+  <p class="' + CSS.classes.extension + '"> <select id="fragSelSelType" class="' + CSS.classes.extension + '" >' 
+    + fillSelectWithNamespaces(namespaces) + '</select> <input  class="' 
+    + CSS.classes.extension + '" type="text" value="" id="fragInSelType" ></p>\
+  <p class="' + CSS.classes.extension + '" >Selector value:</p>\
+  <p class="' + CSS.classes.extension + '"> <input  class="' 
+    + CSS.classes.extension + '" type="text" value="" id="fragInSelVal" ></p>\
+  <p class="' + CSS.classes.extension + '">Inner text:</p>\
+  <div  class="' + CSS.classes.extension + '" id="elementInfo"></div>\
+  </div>';
+  $( "#" + CSS.ids.dialogAddSubfragment).append(div);
+  $( "#" + CSS.ids.dialogAddSubfragment).dialog({
+    autoOpen: false,
+    height: 400,
+    width: 400,
+    modal: false,
+    buttons: {
+      Cancel: function() {
+        $(this).dialog( "close" );
+      },
+      "OK": function() {
+        var e = document.getElementById("fragSelSelType");
+        var strFragSelSelType = e.options[e.selectedIndex].text;
+        currentResource = {
+          type:"fragment",
+          selector: {
+            type: strFragSelSelType + ":" + document.getElementById('fragInSelType').value,
+            value: document.getElementById('fragInSelVal').value
+          }
+        }
+        console.log(currentResource);
+        chrome.extension.sendMessage({task: "addFragment", fragment: currentResource});
+        $(this).dialog( "close" );
+      }
+    },
+    close: function() {
+      currentResource = null;
+      deleteChildsFromElement(CSS.ids.dialogAddResource);
+      removeMoveListener();
+    }
+  });
+  addMoveListener();
+  $( "#" +  CSS.ids.dialogAddSubfragment ).dialog( "open" );
+}
+
+
+
+
+function fillSelectWithNamespaces(namespaces) {
+  var s = "";
+  for (var i = 0; i< namespaces.length; i++) {
+    s += '<option value="' + namespaces[i].id + '">' + namespaces[i].prefix + '</option>';
+  }
+  return s;
+}
+
+function addResourceToTheDialog(elementClicked) {
+  // Add element to the sidebar
+  var div = document.createElement("div");
+  div.className = CSS.classes.element;
+  div.innerHTML = "<p>" + elementClicked.innerText + "</p>\
+  <p><i>" + getElementXPath(elementClicked) + "</i></p>"
+  deleteChildsFromElement("elementInfo");
+  $( "#elementInfo").append(div);
+  var e = document.getElementById("selectNamespace");
+  var nsId = e.options[e.selectedIndex].value;
+  var resName= document.getElementById("inputResource").value
+  currentResource = {
+    namespaceId:nsId, 
+    resourceName:resName,
+    xpath:getElementXPath(elementClicked)}
+}
+
+
 
 function showAboutDialog() {   
   $( "#" + CSS.ids.dialogAbout).dialog({
@@ -262,7 +338,7 @@ function showAddNamespace() {
 }
 
 
-function showContainerDialog() {   
+/* function showContainerDialog() {   
   $( "#" + CSS.ids.dialogContainer ).dialog({
     autoOpen: false,
     height: 400,
@@ -336,37 +412,10 @@ function addContainerToCurrentResource() {
     }
   }
   // console.log(currentResource);
-}
+} */
 
 
-function addElementToTheDialog(elementClicked) {
-  // Add element to the sidebar
-  var div = document.createElement("div");
-  div.id = CSS.ids.element + elementId;
-  div.className = CSS.classes.element;
-  // Text of the clicked element:
-  var p = PARAGRAPH_TEXT.cloneNode(true)
-  p.innerHTML = elementClicked.innerText; 
-  div.appendChild(p);
-  var x = PARAGRAPH_XPATH.cloneNode(true)
-  x.innerHTML = getElementXPath(elementClicked); 
-  div.appendChild(x);
-  if (dialogId == DIALOG_ELEMENTS) {
-    // Relation selection:
-    div.appendChild(SELECT_RELATION.cloneNode(true));
-    // Delete button:
-    var button = BUTTON_DELETE.cloneNode(true)
-    button.id = elementId;
-    div.appendChild(button);
-    // Append to parent
-    document.getElementById(CSS.ids.dialogElements).appendChild(div);
-    elementId++;
-  } else if (dialogId == DIALOG_CONTAINER) {
-    div.appendChild(SELECT_TYPE.cloneNode(true));
-    deleteChildsFromElement(CSS.ids.dialogContainer);
-    document.getElementById(CSS.ids.dialogContainer).appendChild(div)
-  }
-}
+
 
 function removeElementFromTheDialog(buttonClicked) {
   var element = document.getElementById(CSS.ids.element + buttonClicked.id);
