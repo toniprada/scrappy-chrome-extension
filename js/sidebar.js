@@ -86,8 +86,8 @@ function addFragment(fragment) {
     fragments.push(fragment);
     $("#fragmentsContainer").append(
         '<div class="fragment" count="' + fragmentsCount + '">\
-        <p>Selector type: ' +  fragment.selector.type +'</p>\
-        <p>Selector value: ' +  fragment.selector.value + '</p>\
+        <p>Type: ' +  fragment.selector.type +'</p>\
+        <p>Uri pattern: ' +  fragment.selector.uri + '</p>\
         <button class="buttonSmall red" id="removeFragment' + fragmentsCount + '">Remove</button>\
          <button class="buttonSmall blue" id="addSubFragment' + fragmentsCount + '">Add subfragment</button>\
         </div>'

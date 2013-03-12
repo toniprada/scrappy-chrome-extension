@@ -27,7 +27,7 @@ var elementId = 1;
 var currentResource = null;
 var resources = new Array();
 var tabId = null;
-
+var tabUrl = null;
 
 
 /* ------------------------- Request Handling --------------------------------*/
@@ -38,6 +38,7 @@ chrome.extension.onMessage.addListener(
     if (request.callFunction == "toggleExtension") {
       // Enable-disable the extension
       tabId = request.tabId;
+      tabUrl = request.tabUrl;
       toggleExtension();
     } else if (request.callFunction == "consoleLog") {
       // Log stuff from the background js
@@ -197,15 +198,16 @@ function createDialogs() {
 
 
 function showAddFragmentDialog(namespaces) {   
+
   var div = document.createElement('div');
   div.innerHTML = '<div class="' + CSS.classes.extension + '">\
-  <p class="' + CSS.classes.extension + '">Selector type:</p>\
-  <p class="' + CSS.classes.extension + '"> <select id="fragSelSelType" class="' + CSS.classes.extension + '" >' 
+  <p class="' + CSS.classes.extension + '">Type of data:</p>\
+  <p class="' + CSS.classes.extension + '"> <select id="fragTypeSel" class="' + CSS.classes.extension + '" >' 
     + fillSelectWithNamespaces(namespaces) + '</select> <input  class="' 
-    + CSS.classes.extension + '" type="text" value="" id="fragInSelType" ></p>\
-  <p class="' + CSS.classes.extension + '" >Selector value:</p>\
+    + CSS.classes.extension + '" type="text" value="" id="fragTypeInput" ></input></p>\
+  <p class="' + CSS.classes.extension + '" >Uri pattern:</p>\
   <p class="' + CSS.classes.extension + '"> <input  class="' 
-    + CSS.classes.extension + '" type="text" value="" id="fragInSelVal" ></p>\
+    + CSS.classes.extension + '" type="text" value="'+tabUrl+'" id="fragUriInput" ></input></p>\
   </div>';
   $( "#" + CSS.ids.dialogAddResource).append(div);
   $( "#" + CSS.ids.dialogAddResource).dialog({
@@ -218,13 +220,13 @@ function showAddFragmentDialog(namespaces) {
         $(this).dialog( "close" );
       },
       "OK": function() {
-        var e = document.getElementById("fragSelSelType");
-        var strFragSelSelType = e.options[e.selectedIndex].text;
+        var e = document.getElementById("fragTypeSel");
+        var fragTypeSel = e.options[e.selectedIndex].text;
         currentResource = {
           type:"fragment",
           selector: {
-            type: strFragSelSelType + ":" + document.getElementById('fragInSelType').value,
-            value: document.getElementById('fragInSelVal').value
+            type: fragTypeSel + ":" + document.getElementById('fragTypeInput').value,
+            uri: document.getElementById('fragUriInput').value
           }
         }
         console.log(currentResource);

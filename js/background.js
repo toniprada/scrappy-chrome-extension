@@ -15,13 +15,15 @@ specific language governing permissions and limitations under the License.
 */
 
 var tabId = null;
+var url = null;
 
 
 /* ----------------- Request Handling ------------------*/
 
 chrome.browserAction.onClicked.addListener(function(tab) {
   tabId = tab.id;
-  chrome.tabs.sendMessage(tab.id, {callFunction: "toggleExtension", tabId: tabId});
+  tabUrl = tab.url;
+  chrome.tabs.sendMessage(tab.id, {callFunction: "toggleExtension", tabId: tabId, tabUrl: tabUrl});
   chrome.tabs.insertCSS(tab.id, { 
       allFrames: true,
       file: "../css/smoothness/jquery-ui-chrome-extension.css"
